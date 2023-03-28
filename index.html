@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      /* 头图样式 */
+      .header {
+        background-image: url("header-image.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 300px;
+        position: relative;
+      }
+      .header h1 {
+        color: rgb(2, 2, 2);
+        font-size: 5em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-shadow: 2px 2px rgb(255, 255, 255);
+      }
+      /* 导航栏样式 */
+      .navbar {
+        background-color: #bd00f7;
+        overflow: hidden;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1;
+      }
+      .navbar a {
+        color: rgb(255, 255, 255);
+        float: left;
+        font-size: 1.2em;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      /* 内容区样式 */
+      .content {
+        margin: 20px;
+      }
+      .content h2 {
+        color: #333;
+        font-size: 2em;
+        margin-bottom: 20px;
+      }
+      .content p {
+        color: #666;
+        font-size: 1.2em;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      .content img {
+        display: block;
+        margin: 20px auto;
+        max-width: 100%;
+      }
+      /* 脚注样式 */
+      .footer {
+        background-color: #333;
+        color: white;
+        font-size: 1em;
+        padding: 20px;
+    text-align: center;
+      }
+    </style>
+    </head>
+    <body>
+      <!-- 头图 -->
+      <div class="header">
+        <h1>汇报展示</h1>
+        <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\22.png" alt="LOGO" width="300" height="300" >
+      </div>
+      <!-- 导航栏 -->
+      <div class="navbar">
+        <a href="#">行业发展</a>
+        <a href="#">公司介绍</a>
+        <a href="#">业务发展</a>
+        <a href="#">发展愿景</a>
+        <a href="#">案例展示</a>
+      </div>
+
+
+     <!-- 内容区1 -->
+     <h2>孵化账号展示</h2>
+       <head>
+         <style>
+           /* 隐藏所有图片，除了第一张 */
+           .slider img {
+             display: none;
+             border: 2px solid #9900ff; /* 添加图片边框 */
+           }
+           .slider img:first-child {
+             display: block;
+           }
+           /* 添加按钮样式 */
+           .slider button {
+             background: #fff;
+             border: 2px solid #ccc;
+             color: #333;
+             font-size: 16px;
+             padding: 10px;
+             margin: 10px;
+             cursor: pointer;
+             border-radius: 50%; /* 将按钮样式改为圆形 */
+           }
+           /* 添加选中按钮样式 */
+           .slider button.active {
+             background: #333;
+             color: #fff;
+           }
+         </style>
+         <script>
+           // 等待页面加载完成后执行
+           window.onload = function() {
+             // 获取所有图片和按钮
+             var slides = document.querySelectorAll('.slider img');
+             var buttons = document.querySelectorAll('.slider button');
+             // 设置初始索引为 0
+             var currentSlide = 0;
+             // 自动播放间隔（单位为毫秒）
+             var slideInterval = 2000;
+             // 自动播放定时器
+             var autoPlay;
+     
+             // 显示指定索引的图片和按钮
+             function showSlide(index) {
+               // 隐藏所有图片和按钮
+               for (var i = 0; i < slides.length; i++) {
+                 slides[i].style.display = 'none';
+                 buttons[i].classList.remove('active');
+               }
+               // 显示指定索引的图片和按钮
+               slides[index].style.display = 'block';
+               buttons[index].classList.add('active');
+             }
+     
+             // 自动播放函数
+             function nextSlide() {
+               // 显示下一张图片
+               currentSlide = (currentSlide + 1) % slides.length;
+               showSlide(currentSlide);
+             }
+     
+             // 设置自动播放定时器
+             autoPlay = setInterval(nextSlide, slideInterval);
+     
+             // 添加按钮点击事件
+             for (var i = 0; i < buttons.length; i++) {
+               // 为每个按钮添加一个自定义属性，保存它的索引
+               buttons[i].setAttribute('data-index', i);
+               buttons[i].addEventListener('click', function() {
+                 // 获取按钮的索引
+                 var index = parseInt(this.getAttribute('data-index'));
+                 // 显示指定索引的图片和按钮
+                 showSlide(index);
+                 // 取消自动播放定时器
+                 clearInterval
+             (autoPlay);
+             // 更新当前索引
+             currentSlide = index;
+           });
+         }
+         // 添加左右箭头点击事件
+         document.getElementById('prev').addEventListener('click', function() {
+           // 显示上一张图片
+           currentSlide = (currentSlide + slides.length - 1) % slides.length;
+           showSlide(currentSlide);
+           // 取消自动播放定时器
+           clearInterval(autoPlay);
+         });
+         document.getElementById('next').addEventListener('click', function() {
+           // 显示下一张图片
+           currentSlide = (currentSlide + 1) % slides.length;
+           showSlide(currentSlide);
+           // 取消自动播放定时器
+           clearInterval(autoPlay);
+         });
+       };
+     </script>
+      </head>
+       <body>
+         <div class="slider">
+           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示001.png" alt="Image 1">
+           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示002.png" alt="Image 2">
+           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示001.png" alt="Image 3">
+           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示002.png" alt="Image 4">
+           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示001.png" alt="Image 5">
+           <div>
+             <!-- 添加手动选择的按钮 -->
+             <button></button>
+             <button></button>
+             <button></button>
+             <button></button>
+             <button></button>
+           </div>
+         </div>
+       </body>
+     </html>
+     
+
+
+
+      <!-- 内容区 -->
+      <div class="content">
+        <h2>关于我们</h2>
+       
+         
+        <p>纯初文化是网易游戏全资子公司，成立于2018年9月。是一
+            家专注于抖音快手短视频和直播内容领域的MCN机构。以网易
+            系内容为主，泛生活娱乐向内容为辅，营业范围包括电子竞技
+            行业（电子竞技俱乐部）和娱乐营销行业（艺人、明星代言、
+            广告及移动互联网营销等）。
+            旗下涵盖Cosplay、动漫、游戏、颜值、搞笑、剧情等多领
+            域达人，精准触达95后、00后年轻群体。总粉丝量已达1亿+，
+            播放量超240亿。
+            同时作为网易游戏旗下全资子公司，纯初现服务于多款网易
+            游戏旗下核心产品。</p >
+       
+        <p>纯初立志于成为抖音快手短视频和直播内容领域TOP前三的MCN 
+            机构，持续优化对KOL、电竞战队的运营与管理，探索并挖掘行业内商
+            业价值，实现多渠道变现。
+            纯初将立足于95、00后年轻受众群体，进一步推动短视频/电竞/ 
+            直播等新兴行业健康稳定发展，成为上海MCN业内机构模范标杆。</p >
+        <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\21.png" alt="Image 2" width="400" height="400" style="margin-top:5px;">
+      </div>
+      <!-- 脚注 -->
+      <div class="footer">
+        <p>&copy; 合作请联系微信：fengbo89.</p >
+      </div>
+    </body>
+  </html>
