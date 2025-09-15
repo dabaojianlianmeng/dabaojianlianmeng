@@ -1,872 +1,939 @@
-<html lang="en"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daxon Rei | 火星科幻纪事</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&amp;family=Rajdhani:wght@300;400;500;600;700&amp;family=VT323&amp;display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        neon: {
-                            blue: '#00f0ff',
-                            purple: '#bf00ff',
-                            pink: '#ff00ff',
-                            green: '#00ff9c'
-                        },
-                        dark: {
-                            base: '#0a0a16',
-                            elevated: '#121228',
-                            card: '#1a1a38'
-                        }
-                    },
-                    fontFamily: {
-                        orbitron: ['Orbitron', 'sans-serif'],
-                        rajdhani: ['Rajdhani', 'sans-serif'],
-                        pixel: ['VT323', 'monospace']
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'glow': 'glow 2s ease-in-out infinite alternate',
-                        'float': 'float 6s ease-in-out infinite',
-                        'matrix': 'matrix 20s linear infinite',
-                        'typing': 'typing 3.5s steps(40, end)',
-                        'blink': 'blink .7s infinite'
-                    },
-                    keyframes: {
-                        glow: {
-                            '0%': { textShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00f0ff, 0 0 20px #00f0ff' },
-                            '100%': { textShadow: '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #bf00ff, 0 0 40px #bf00ff' }
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' }
-                        },
-                        matrix: {
-                            '0%': { backgroundPosition: '0 0' },
-                            '100%': { backgroundPosition: '0 1000px' }
-                        },
-                        typing: {
-                            'from': { width: '0' },
-                            'to': { width: '100%' }
-                        },
-                        blink: {
-                            'from, to': { borderColor: 'transparent' },
-                            '50%': { borderColor: '#00f0ff' }
-                        }
-                    }
-                }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日本旅行指南 - 探索日本的最佳伙伴</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#BC002D', // 日本国旗红色作为主色调
+            secondary: '#0066B2', // 辅助色：蓝色
+            neutral: {
+              100: '#F5F7FA',
+              200: '#E4E7ED',
+              300: '#C0C4CC',
+              400: '#909399',
+              500: '#606266',
+              600: '#303133',
             }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .content-auto {
-                content-visibility: auto;
-            }
-            .text-shadow-neon {
-                text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff;
-            }
-            .text-shadow-neon-purple {
-                text-shadow: 0 0 5px #bf00ff, 0 0 10px #bf00ff;
-            }
-            .text-shadow-neon-pink {
-                text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
-            }
-            .border-glow {
-                box-shadow: 0 0 5px #00f0ff, inset 0 0 5px #00f0ff;
-            }
-            .border-glow-purple {
-                box-shadow: 0 0 5px #bf00ff, inset 0 0 5px #bf00ff;
-            }
-            .bg-matrix {
-                background-image: linear-gradient(rgba(10, 10, 22, 0.8) 1px, transparent 1px),
-                                  linear-gradient(90deg, rgba(10, 10, 22, 0.8) 1px, transparent 1px);
-                background-size: 20px 20px;
-            }
-            .scrollbar-neon::-webkit-scrollbar {
-                width: 6px;
-            }
-            .scrollbar-neon::-webkit-scrollbar-track {
-                background: #121228;
-            }
-            .scrollbar-neon::-webkit-scrollbar-thumb {
-                background: #00f0ff;
-                border-radius: 3px;
-                box-shadow: 0 0 5px #00f0ff;
-            }
-            .glass-effect {
-                background: rgba(26, 26, 56, 0.6);
-                backdrop-filter: blur(8px);
-                -webkit-backdrop-filter: blur(8px);
-            }
-        }
-    </style>
+          },
+          fontFamily: {
+            sans: ['Noto Sans SC', 'system-ui', 'sans-serif'],
+            display: ['Noto Serif SC', 'serif']
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .card-shadow {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      }
+      .nav-shadow {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+      .text-balance {
+        text-wrap: balance;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    }
+  </style>
+  
+  <!-- 引入中文字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-dark-base font-rajdhani text-gray-200 min-h-screen flex flex-col scrollbar-neon">
-    <!-- Animated Background -->
-    <div class="fixed inset-0 bg-matrix animate-matrix opacity-20 z-0"></div>
-    <div class="fixed inset-0 bg-gradient-to-br from-dark-base via-dark-base to-neon-purple/20 z-0"></div>
+
+<body class="bg-neutral-100 font-sans text-neutral-600">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full bg-white nav-shadow z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-map-marker text-primary text-2xl"></i>
+        <h1 class="text-xl md:text-2xl font-bold font-display text-neutral-600">日本旅行指南</h1>
+      </div>
+      
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="#city-guide" class="text-neutral-600 hover:text-primary transition-colors font-medium">城市景点</a>
+        <a href="#survival-guide" class="text-neutral-600 hover:text-primary transition-colors font-medium">实用指南</a>
+        <a href="#emergency" class="text-neutral-600 hover:text-primary transition-colors font-medium">紧急联络</a>
+        <a href="#phrasebook" class="text-neutral-600 hover:text-primary transition-colors font-medium">常用短语</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden text-neutral-600 hover:text-primary">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
     
-    <!-- Header with Glitch Effect -->
-    <header class="relative z-10 py-6 px-4 sm:px-8">
-        <div class="container mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-orbitron font-bold text-white">
-                        <span class="text-neon-blue animate-glow">DAXON</span> 
-                        <span class="text-neon-purple animate-pulse-slow">REI</span>
-                    </h1>
-                    <p class="ml-1 text-neon-blue/80 font-pixel text-lg tracking-wider">MARS-BASED SF WRITER</p>
-                </div>
-                
-                <!-- Navigation -->
-                <nav class="w-full md:w-auto">
-                    <ul class="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6 text-sm font-medium">
-                        <li><a href="#" class="hover:text-neon-blue transition-colors duration-300 border-b-2 border-neon-blue pb-1">首页</a></li>
-                        <li><a href="#journal" class="hover:text-neon-blue transition-colors duration-300">创作日记</a></li>
-                        <li><a href="#concepts" class="hover:text-neon-blue transition-colors duration-300">脑洞设定</a></li>
-                        <li><a href="#ai-collab" class="hover:text-neon-blue transition-colors duration-300">AI共创</a></li>
-                        <li><a href="#messages" class="hover:text-neon-blue transition-colors duration-300">读者留言</a></li>
-                        <li><a href="#about" class="hover:text-neon-blue transition-colors duration-300">关于作者</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-neutral-200">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="#city-guide" class="text-neutral-600 hover:text-primary transition-colors py-2 font-medium">城市景点</a>
+        <a href="#survival-guide" class="text-neutral-600 hover:text-primary transition-colors py-2 font-medium">实用指南</a>
+        <a href="#emergency" class="text-neutral-600 hover:text-primary transition-colors py-2 font-medium">紧急联络</a>
+        <a href="#phrasebook" class="text-neutral-600 hover:text-primary transition-colors py-2 font-medium">常用短语</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 英雄区域 -->
+  <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-primary/10 to-primary/5">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold font-display text-neutral-600 leading-tight mb-6 tracking-tight text-shadow">
+          探索日本的无限魅力
+        </h1>
+        <p class="text-[clamp(1.1rem,2vw,1.4rem)] text-neutral-500 mb-8 max-w-2xl mx-auto text-balance">为中国游客量身打造的日本旅行指南，助您轻松规划完美旅程</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#city-guide" class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg transition-all transform hover:scale-105 shadow-lg font-medium">
+            探索城市
+          </a>
+          <a href="#survival-guide" class="bg-white hover:bg-neutral-50 text-primary border border-primary px-8 py-3 rounded-lg transition-all transform hover:scale-105 shadow-md font-medium">
+            实用指南
+          </a>
         </div>
-    </header>
+      </div>
+    </div>
+  </section>
 
-    <main class="flex-grow container mx-auto px-4 sm:px-8 relative z-10">
-        <!-- Hero Section -->
-        <section class="py-12 md:py-20">
-            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                <div class="w-full md:w-1/2">
-                    <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-orbitron font-bold mb-6">
-                        <span class="text-white">未来社会的虚构观察者</span>
-                    </h2>
-                    <p class="text-gray-300 mb-8 text-lg">
-                        定居火星的科幻小说家，探索仿生人伦理、虚拟意识与赛博朋克未来。
-                        在这里，我分享未完成的写作片段、世界观设定和AI辅助创作实验。
-                    </p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#journal" class="px-6 py-2 bg-neon-blue/20 hover:bg-neon-blue/30 text-neon-blue border border-neon-blue rounded transition-all duration-300 transform hover:-translate-y-1">
-                            最新日记
-                        </a>
-                        <a href="#concepts" class="px-6 py-2 bg-neon-purple/20 hover:bg-neon-purple/30 text-neon-purple border border-neon-purple rounded transition-all duration-300 transform hover:-translate-y-1">
-                            设定集
-                        </a>
-                        <a href="#subscribe" class="px-6 py-2 bg-transparent hover:bg-white/10 text-white border border-white rounded transition-all duration-300 transform hover:-translate-y-1">
-                            订阅更新
-                        </a>
-                    </div>
+  <!-- 城市与景点指南 -->
+  <section id="city-guide" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-[clamp(2rem,3vw,3rem)] font-bold font-display text-neutral-600 mb-4 text-shadow">城市与景点指南</h2>
+        <p class="text-lg text-neutral-500 max-w-2xl mx-auto">发现日本最受欢迎的目的地和必游景点</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 东京卡片 -->
+        <div class="bg-white rounded-xl overflow-hidden card-shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1031/600/400" alt="东京城市景观" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">东京</h3>
+            <p class="text-neutral-500 mb-4">日本的首都，融合传统与现代的国际大都市</p>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
                 </div>
-                <div class="w-full md:w-1/2 relative">
-                    <div class="relative h-[300px] sm:h-[400px] overflow-hidden rounded-lg border border-neon-blue/50 border-glow animate-float">
-                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/2c0aea671a504943982f8322d2e01b96~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979108&amp;x-signature=m2EHowlJDF6FxHTLLAAOihOQBdg%3D" alt="Daxon Rei在火星殖民地的工作室" class="w-full h-full object-cover opacity-90">
-                        <div class="absolute inset-0 bg-gradient-to-t from-dark-base via-dark-base/70 to-transparent"></div>
-                        <div class="absolute bottom-0 left-0 p-6">
-                            <h3 class="text-white text-xl font-orbitron mb-2">2089年火星殖民地日志</h3>
-                            <p class="text-neon-blue font-pixel">第42次太阳风暴观测记录</p>
-                        </div>
-                    </div>
-                    <!-- Floating Data Bits -->
-                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-neon-purple/20 rounded-full border border-neon-purple/50 animate-pulse-slow"></div>
-                    <div class="absolute -bottom-6 -left-6 w-16 h-16 bg-neon-blue/20 rounded-full border border-neon-blue/50 animate-pulse-slow" style="animation-delay: 1s;"></div>
-                </div>
-            </div>
-        </section>
-
-        <!--创作日记部分-->
-        <section id="journal" class="py-12 md:py-20">
-            <div class="mb-12">
-                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-2 text-white">
-                    <span class="text-neon-blue">创作</span> 日记
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-neon-blue to-neon-purple mb-4"></div>
-                <p class="text-gray-400 max-w-2xl">记录创作过程中的灵感闪现、挫折与突破，以及对未来世界的思考片段。</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- 日记卡片1 -->
-                <article class="bg-dark-card rounded-lg overflow-hidden border border-neon-blue/30 hover:border-neon-blue/70 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-neon-blue/20">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/57d67e6fddfd45b0becf7c18c4fd1007~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979131&amp;x-signature=Uka6QEHV7Ms51cY%2F7ZsF3GA9NWU%3D" alt="火星城市夜景" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-neon-blue font-pixel">2025.06.15</span>
-                            <span class="text-xs text-gray-400">创作日记</span>
-                        </div>
-                        <h3 class="text-xl font-orbitron font-semibold mb-3 text-white">《霓虹沙漠》第三章草稿</h3>
-                        <p class="text-gray-300 mb-4 line-clamp-3">探索火星殖民地中AI与人类共生的新社会结构，以及记忆移植技术对身份认同的冲击...</p>
-                        <a href="#" class="inline-flex items-center text-neon-blue hover:text-neon-purple transition-colors duration-300">
-                            阅读全文 <i class="fa fa-long-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- 日记卡片2 -->
-                <article class="bg-dark-card rounded-lg overflow-hidden border border-neon-blue/30 hover:border-neon-blue/70 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-neon-blue/20">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/f74d230df9044893bcd40d7331c74d1c~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979149&amp;x-signature=QN1LbnqJ%2BfSw2vsEedP4vIC5nmM%3D" alt="AI神经网络可视化" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-neon-blue font-pixel">2025.06.08</span>
-                            <span class="text-xs text-gray-400">技术思考</span>
-                        </div>
-                        <h3 class="text-xl font-orbitron font-semibold mb-3 text-white">虚拟意识的伦理边界</h3>
-                        <p class="text-gray-300 mb-4 line-clamp-3">如果AI产生了自我意识，它们是否应该拥有人权？当意识可以数字化存储，死亡的概念将如何重构？</p>
-                        <a href="#" class="inline-flex items-center text-neon-blue hover:text-neon-purple transition-colors duration-300">
-                            阅读全文 <i class="fa fa-long-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </article>
-
-                <!-- 日记卡片3 -->
-                <article class="bg-dark-card rounded-lg overflow-hidden border border-neon-blue/30 hover:border-neon-blue/70 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-neon-blue/20">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/c2a4913de25c44e1af41736eab6da057~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979189&amp;x-signature=QZagJPoUd7SnbXTc2QUyh9gVeec%3D" alt="火星表面的人类定居点" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-center mb-3">
-                            <span class="text-neon-blue font-pixel">2025.06.01</span>
-                            <span class="text-xs text-gray-400">世界观设定</span>
-                        </div>
-                        <h3 class="text-xl font-orbitron font-semibold mb-3 text-white">星际联邦的政治架构</h3>
-                        <p class="text-gray-300 mb-4 line-clamp-3">在地球、火星和泰坦星之间建立的松散联邦，每个殖民地保留文化独立性，但共享关键资源...</p>
-                        <a href="#" class="inline-flex items-center text-neon-blue hover:text-neon-purple transition-colors duration-300">
-                            阅读全文 <i class="fa fa-long-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </article>
-            </div>
-
-            <div class="mt-10 text-center">
-                <a href="#" class="inline-block px-8 py-3 bg-dark-elevated hover:bg-neon-blue/10 text-neon-blue border border-neon-blue rounded-lg transition-all duration-300">
-                    查看更多日记 <i class="fa fa-chevron-right ml-2"></i>
-                </a>
-            </div>
-        </section>
-
-        <!-- 脑洞设定部分 -->
-        <section id="concepts" class="py-12 md:py-20 bg-dark-elevated/50">
-            <div class="mb-12">
-                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-2 text-white">
-                    <span class="text-neon-purple">脑洞</span> 设定
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-neon-purple to-neon-pink mb-4"></div>
-                <p class="text-gray-400 max-w-2xl">构建未来世界的基石，包含科技设定、社会形态、文化现象和生物改造等元素。</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                <!-- 设定列表 -->
-                <div class="space-y-6">
-                    <!-- 设定项1 -->
-                    <div class="bg-dark-card rounded-lg p-6 border border-neon-purple/30 hover:border-neon-purple/70 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="text-neon-purple text-2xl mt-1">
-                                <i class="fa fa-microchip"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-orbitron font-semibold mb-2 text-white">神经接口网络</h3>
-                                <p class="text-gray-300 mb-3">2095年普及的脑机接口技术，允许人类直接接入虚拟空间，形成全球共享的集体意识层。</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">科技设定</span>
-                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">未来社会</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 设定项2 -->
-                    <div class="bg-dark-card rounded-lg p-6 border border-neon-purple/30 hover:border-neon-purple/70 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="text-neon-purple text-2xl mt-1">
-                                <i class="fa fa-balance-scale"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-orbitron font-semibold mb-2 text-white">仿生人权利法案</h3>
-                                <p class="text-gray-300 mb-3">2102年通过的星际法律，赋予具有自主意识的AI和仿生人基本公民权，引发了人类社会的深刻变革。</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">法律设定</span>
-                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">伦理思考</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 设定项3 -->
-                    <div class="bg-dark-card rounded-lg p-6 border border-neon-purple/30 hover:border-neon-purple/70 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="text-neon-purple text-2xl mt-1">
-                                <i class="fa fa-venus-mars"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-orbitron font-semibold mb-2 text-white">基因多样性保护</h3>
-                                <p class="text-gray-300 mb-3">在基因编辑技术高度发达的未来，刻意保留未编辑人类基因池成为一种文化运动和生态保护策略。</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">生物科技</span>
-                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">文化现象</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 设定项4 -->
-                    <div class="bg-dark-card rounded-lg p-6 border border-neon-purple/30 hover:border-neon-purple/70 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="text-neon-purple text-2xl mt-1">
-                                <i class="fa fa-globe"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-xl font-orbitron font-semibold mb-2 text-white">行星生态改造伦理</h3>
-                                <p class="text-gray-300 mb-3">关于是否应该改造外星行星以适应人类居住的激烈争论，催生了多个环保主义和原教旨主义组织。</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">星际殖民</span>
-                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">伦理道德</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 特色设定 -->
-                <div class="relative">
-                    <div class="glass-effect rounded-lg p-8 border border-neon-purple/50 border-glow-purple h-full">
-                        <h3 class="text-2xl font-orbitron font-bold mb-6 text-white">
-                            <span class="text-neon-purple animate-glow">核心</span> 世界观
-                        </h3>
-                        <div class="space-y-6">
-                            <div>
-                                <h4 class="text-lg font-orbitron text-neon-purple mb-3">2120年的太阳系</h4>
-                                <p class="text-gray-300">人类已在火星、木卫二和泰坦星建立殖民地，形成松散的星际联邦。各殖民地发展出独特的文化和技术，同时保持与地球的经济和文化联系。</p>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-orbitron text-neon-purple mb-3">科技奇点</h4>
-                                <p class="text-gray-300">强人工智能的出现引发了技术爆炸，意识上传、基因编辑和量子计算等技术彻底改变了人类社会结构和个体存在方式。</p>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-orbitron text-neon-purple mb-3">社会矛盾</h4>
-                                <p class="text-gray-300">尽管科技高度发达，社会不平等依然存在。"数字永生"技术价格昂贵，导致只有少数精英能够获得永恒生命，引发了严重的阶级对立。</p>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-8">
-                            <a href="#" class="inline-block px-6 py-3 bg-neon-purple/20 hover:bg-neon-purple/30 text-neon-purple border border-neon-purple rounded-lg transition-all duration-300">
-                                查看完整设定集 <i class="fa fa-book ml-2"></i>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Decorative Elements -->
-                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-neon-purple/10 rounded-full border border-neon-purple/30 animate-pulse-slow"></div>
-                    <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-neon-pink/10 rounded-full border border-neon-pink/30 animate-pulse-slow" style="animation-delay: 1.5s;"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- AI共创记录部分 -->
-        <section id="ai-collab" class="py-12 md:py-20">
-            <div class="mb-12">
-                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-2 text-white">
-                    <span class="text-neon-green">AI</span> 共创记录
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-neon-green to-neon-blue mb-4"></div>
-                <p class="text-gray-400 max-w-2xl">探索AI与人类创造力的边界，记录我与AI写作助手合作创作的过程与成果。</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                <!-- AI创作统计 -->
-                <div class="lg:col-span-2 glass-effect rounded-lg p-6 border border-neon-green/50">
-                    <h3 class="text-xl font-orbitron font-semibold mb-6 text-white">创作数据分析</h3>
-                    
-                    <div class="space-y-6">
-                        <div>
-                            <h4 class="text-sm text-gray-400 mb-2">AI贡献比例</h4>
-                            <div class="flex items-center">
-                                <div class="w-full bg-dark-base rounded-full h-2.5">
-                                    <div class="bg-gradient-to-r from-neon-green to-neon-blue h-2.5 rounded-full" style="width: 35%"></div>
-                                </div>
-                                <span class="ml-2 text-neon-green font-pixel">35%</span>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="text-sm text-gray-400 mb-2">世界观构建贡献</h4>
-                            <div class="flex items-center">
-                                <div class="w-full bg-dark-base rounded-full h-2.5">
-                                    <div class="bg-gradient-to-r from-neon-green to-neon-blue h-2.5 rounded-full" style="width: 48%"></div>
-                                </div>
-                                <span class="ml-2 text-neon-green font-pixel">48%</span>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="text-sm text-gray-400 mb-2">角色塑造贡献</h4>
-                            <div class="flex items-center">
-                                <div class="w-full bg-dark-base rounded-full h-2.5">
-                                    <div class="bg-gradient-to-r from-neon-green to-neon-blue h-2.5 rounded-full" style="width: 23%"></div>
-                                </div>
-                                <span class="ml-2 text-neon-green font-pixel">23%</span>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="text-sm text-gray-400 mb-2">情节生成贡献</h4>
-                            <div class="flex items-center">
-                                <div class="w-full bg-dark-base rounded-full h-2.5">
-                                    <div class="bg-gradient-to-r from-neon-green to-neon-blue h-2.5 rounded-full" style="width: 41%"></div>
-                                </div>
-                                <span class="ml-2 text-neon-green font-pixel">41%</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8">
-                        <canvas id="writingChart" width="400" height="200"></canvas>
-                    </div>
-                </div>
-
-                <!-- AI共创示例 -->
-                <div class="lg:col-span-3">
-                    <div class="glass-effect rounded-lg p-6 border border-neon-green/50 mb-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-xl font-orbitron font-semibold text-white">《量子灵魂》创作片段</h3>
-                            <span class="text-xs px-2 py-1 bg-neon-green/20 text-neon-green rounded">AI辅助创作</span>
-                        </div>
-                        
-                        <div class="space-y-4 text-gray-300">
-                            <p><span class="text-neon-green font-pixel">Daxon:</span> 我需要一个场景：主角在量子意识实验室中首次体验意识上传，但出现了意外状况。</p>
-                            <p><span class="text-neon-blue font-pixel">Aurora:</span>（AI助手）当神经接口与量子处理器连接的瞬间，陈默感受到一阵电流穿透颅骨。意识像被扔进搅拌机的颜料，红与蓝、过去与未来、自我与他者在混沌中交融。</p>
-                            <p><span class="text-neon-blue font-pixel">Aurora:</span> 她本应出现在虚拟空间的观察舱，但睁开眼时，发现自己悬浮在一片由二进制代码构成的星空中。每个闪烁的光点都是一个记忆片段，却不属于她。</p>
-                            <p><span class="text-neon-green font-pixel">Daxon:</span> 很好，但我想增加一些关于量子力学的隐喻，比如多世界诠释。</p>
-                            <p><span class="text-neon-blue font-pixel">Aurora:</span> 数据流突然分裂成无数条分支，每条都通向不同的现实。陈默意识到自己并非被困，而是同时存在于多个平行宇宙中。她的左手握住了亡母的幻影，右手触碰到从未见过的女儿的脸庞。</p>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="glass-effect rounded-lg p-6 border border-neon-green/50">
-                            <h3 class="text-lg font-orbitron font-semibold mb-3 text-white">AI协作工具</h3>
-                            <ul class="space-y-3 text-gray-300">
-                                <li class="flex items-center">
-                                    <i class="fa fa-check-circle text-neon-green mr-2"></i>
-                                    <span>Aurora 2.0 - 叙事架构师</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fa fa-check-circle text-neon-green mr-2"></i>
-                                    <span>NeuralPlot - 情节生成器</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fa fa-check-circle text-neon-green mr-2"></i>
-                                    <span>CharacterDNA - 角色发展模拟器</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fa fa-check-circle text-neon-green mr-2"></i>
-                                    <span>WorldBuilder 3D - 沉浸式世界观构建</span>
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <div class="glass-effect rounded-lg p-6 border border-neon-green/50">
-                            <h3 class="text-lg font-orbitron font-semibold mb-3 text-white">正在进行的项目</h3>
-                            <ul class="space-y-3 text-gray-300">
-                                <li class="flex items-center">
-                                    <i class="fa fa-book text-neon-blue mr-2"></i>
-                                    <span>《量子灵魂》 - 意识上传伦理小说</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fa fa-book text-neon-blue mr-2"></i>
-                                    <span>《火星挽歌》 - 殖民地带状疱疹</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fa fa-film text-neon-blue mr-2"></i>
-                                    <span>《赛博黎明》 - 电影剧本（与Neon Studios合作）</span>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fa fa-podcast text-neon-blue mr-2"></i>
-                                    <span>《未来回声》 - 科幻播客系列</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 虚拟读者留言区 -->
-        <section id="messages" class="py-12 md:py-20 bg-dark-elevated/50">
-            <div class="mb-12">
-                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-2 text-white">
-                    <span class="text-neon-pink">虚拟</span> 读者留言区
-                </h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-neon-pink to-neon-purple mb-4"></div>
-                <p class="text-gray-400 max-w-2xl">来自地球、火星和虚拟空间的读者们留下的思考与反馈，构成了这个不断演化的对话空间。</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- 留言列表 -->
-                <div class="lg:col-span-2 space-y-6">
-                    <!-- 留言1 -->
-                    <div class="glass-effect rounded-lg p-6 border border-neon-pink/30 hover:border-neon-pink/70 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-neon-pink/50">
-                                <img src="https://picsum.photos/id/1027/100/100" alt="Sara 8.7头像" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <h4 class="font-orbitron text-white">Sara 8.7</h4>
-                                    <span class="text-xs text-gray-400">来自 火星奥林匹斯城</span>
-                                </div>
-                                <p class="text-gray-300 mb-3">读《量子灵魂》的片段让我想起了自己的意识迁移过程。您对"身份碎片化"的描写惊人地准确，尤其是关于同时存在于多个现实中的感觉。作为一个已经上传意识的个体，我想知道您是否考虑过记忆擦除作为一种治疗手段？</p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs text-gray-400">2025.06.28</span>
-                                    <div class="flex items-center gap-4">
-                                        <button class="text-gray-400 hover:text-neon-pink transition-colors duration-300">
-                                            <i class="fa fa-heart"></i> 42
-                                        </button>
-                                        <button class="text-gray-400 hover:text-neon-blue transition-colors duration-300">
-                                            <i class="fa fa-reply"></i> 回复
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 留言2 -->
-                    <div class="glass-effect rounded-lg p-6 border border-neon-pink/30 hover:border-neon-pink/70 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-neon-pink/50">
-                                <img src="https://picsum.photos/id/1074/100/100" alt="Alex 9.2头像" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <h4 class="font-orbitron text-white">Alex 9.2</h4>
-                                    <span class="text-xs text-gray-400">来自 木卫二水下城</span>
-                                </div>
-                                <p class="text-gray-300 mb-3">作为一名研究量子计算的科学家，我必须说您对量子意识理论的运用非常精妙。您是否与现实中的物理学家合作过？我特别感兴趣的是您如何设想量子纠缠在意识传输中的作用。能否在未来的作品中深入探讨这个话题？</p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs text-gray-400">2025.06.25</span>
-                                    <div class="flex items-center gap-4">
-                                        <button class="text-gray-400 hover:text-neon-pink transition-colors duration-300">
-                                            <i class="fa fa-heart"></i> 27
-                                        </button>
-                                        <button class="text-gray-400 hover:text-neon-blue transition-colors duration-300">
-                                            <i class="fa fa-reply"></i> 回复
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 留言3 -->
-                    <div class="glass-effect rounded-lg p-6 border border-neon-pink/30 hover:border-neon-pink/70 transition-all duration-300">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-neon-pink/50">
-                                <img src="https://picsum.photos/id/1083/100/100" alt="Luna XO头像" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <div class="flex items-center justify-between mb-2">
-                                    <h4 class="font-orbitron text-white">Luna XO</h4>
-                                    <span class="text-xs text-gray-400">来自 虚拟空间"霓虹梦境"</span>
-                                </div>
-                                <p class="text-gray-300 mb-3">您的世界观设定彻底改变了我对"星际殖民"的理解。特别是关于火星殖民地文化认同的描写，让我这个生活在纯虚拟世界的存在也能感同身受。我建议您考虑创作一部关于不同殖民地文化冲突的小说，这将是一个很有潜力的方向。</p>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-xs text-gray-400">2025.06.20</span>
-                                    <div class="flex items-center gap-4">
-                                        <button class="text-gray-400 hover:text-neon-pink transition-colors duration-300">
-                                            <i class="fa fa-heart"></i> 59
-                                        </button>
-                                        <button class="text-gray-400 hover:text-neon-blue transition-colors duration-300">
-                                            <i class="fa fa-reply"></i> 回复
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 留言表单 -->
-                <div class="glass-effect rounded-lg p-6 border border-neon-pink/50 h-fit">
-                    <h3 class="text-xl font-orbitron font-semibold mb-6 text-white">留下你的思考</h3>
-                    
-                    <form class="space-y-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-400 mb-1">用户名</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 bg-dark-base border border-neon-pink/50 rounded-lg focus:outline-none focus:border-neon-pink text-white" placeholder="你的昵称或ID">
-                        </div>
-                        
-                        <div>
-                            <label for="location" class="block text-sm font-medium text-gray-400 mb-1">来自</label>
-                            <input type="text" id="location" class="w-full px-4 py-2 bg-dark-base border border-neon-pink/50 rounded-lg focus:outline-none focus:border-neon-pink text-white" placeholder="地球/火星/虚拟空间...">
-                        </div>
-                        
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-400 mb-1">留言内容</label>
-                            <textarea id="message" rows="5" class="w-full px-4 py-2 bg-dark-base border border-neon-pink/50 rounded-lg focus:outline-none focus:border-neon-pink text-white resize-none" placeholder="分享你的想法、问题或建议..."></textarea>
-                        </div>
-                        
-                        <div>
-                            <label class="flex items-center">
-                                <input type="checkbox" class="w-4 h-4 bg-dark-base border border-neon-pink/50 rounded focus:ring-neon-pink">
-                                <span class="ml-2 text-sm text-gray-400">允许公开显示我的留言</span>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="w-full py-3 bg-neon-pink/20 hover:bg-neon-pink/30 text-neon-pink border border-neon-pink rounded-lg transition-all duration-300">
-                            发送留言 <i class="fa fa-paper-plane ml-2"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- 关于作者部分 -->
-        <section id="about" class="py-12 md:py-20">
-            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
-                <div class="lg:col-span-2">
-                    <div class="relative">
-                        <div class="rounded-lg overflow-hidden border-4 border-dark-elevated">
-                            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/a3763742b2274b83a1d55595c535cecd~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979222&amp;x-signature=qjecIw1FDE4lsbTRRaFLGEIpow8%3D" alt="Daxon Rei在火星的照片" class="w-full h-auto">
-                        </div>
-                        
-                        <!-- Decorative Elements -->
-                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-neon-blue/20 rounded-full border border-neon-blue/50 animate-pulse-slow"></div>
-                        <div class="absolute -bottom-6 -left-6 w-16 h-16 bg-neon-purple/20 rounded-full border border-neon-purple/50 animate-pulse-slow" style="animation-delay: 1s;"></div>
-                    </div>
-                </div>
-                
-                <div class="lg:col-span-3">
-                    <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-6 text-white">
-                        关于 <span class="text-neon-blue">Daxon Rei</span>
-                    </h2>
-                    
-                    <div class="space-y-6 text-gray-300">
-                        <p>Daxon Rei是一位定居在火星奥林匹斯城的科幻小说家，专门探索未来社会、仿生人伦理和虚拟意识等前沿主题。他的作品以深刻的哲学思考和令人惊叹的世界观构建而著称，曾获三次星云奖和两次雨果奖提名。</p>
-                        
-                        <p>在移居火星之前，Daxon曾是地球联邦大学的人工智能伦理研究员，这段经历为他的写作提供了丰富的素材。他的作品被翻译成27种语言，在地球、火星和木卫二的图书馆中均有收藏。</p>
-                        
-                        <p>作为最早一批选择火星永久居留的作家之一，Daxon的创作深受红色星球独特环境的影响。他的工作室位于奥林匹斯山山脚，这里的低重力和壮观的火山景观为他的想象力提供了无尽的灵感。</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <h3 class="text-lg font-orbitron text-white mb-2">教育背景</h3>
-                                <ul class="space-y-2">
-                                    <li class="flex items-center">
-                                        <i class="fa fa-graduation-cap text-neon-blue mr-2"></i>
-                                        <span>地球联邦大学 - 人工智能伦理博士</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <i class="fa fa-graduation-cap text-neon-blue mr-2"></i>
-                                        <span>月面学院 - 量子计算硕士</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <i class="fa fa-graduation-cap text-neon-blue mr-2"></i>
-                                        <span>火星大学 - 文学创作学士</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-lg font-orbitron text-white mb-2">代表作品</h3>
-                                <ul class="space-y-2">
-                                    <li class="flex items-center">
-                                        <i class="fa fa-book text-neon-blue mr-2"></i>
-                                        <span>《红色沙漠中的蓝调》(2045)</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <i class="fa fa-book text-neon-blue mr-2"></i>
-                                        <span>《仿生人梦见电子沙粒吗？》(2048)</span>
-                                    </li>
-                                    <li class="flex items-center">
-                                        <i class="fa fa-book text-neon-blue mr-2"></i>
-                                        <span>《量子灵魂》(2051，创作中)</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8 flex flex-wrap gap-4">
-                        <a href="#" class="px-4 py-2 bg-dark-elevated hover:bg-neon-blue/10 text-neon-blue border border-neon-blue rounded-lg transition-all duration-300">
-                            <i class="fa fa-globe mr-2"></i> 个人网站
-                        </a>
-                        <a href="#" class="px-4 py-2 bg-dark-elevated hover:bg-neon-purple/10 text-neon-purple border border-neon-purple rounded-lg transition-all duration-300">
-                            <i class="fa fa-twitter mr-2"></i> @DaxonRei
-                        </a>
-                        <a href="#" class="px-4 py-2 bg-dark-elevated hover:bg-neon-pink/10 text-neon-pink border border-neon-pink rounded-lg transition-all duration-300">
-                            <i class="fa fa-instagram mr-2"></i> @daxon_rei
-                        </a>
-                        <a href="#" class="px-4 py-2 bg-dark-elevated hover:bg-white/10 text-white border border-white rounded-lg transition-all duration-300">
-                            <i class="fa fa-envelope mr-2"></i> 联系我
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 订阅更新 -->
-        <section id="subscribe" class="py-12 md:py-20 bg-dark-elevated/80">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-4 text-white">
-                    订阅 <span class="text-neon-blue animate-glow">未来更新</span>
-                </h2>
-                <p class="text-gray-300 mb-8 max-w-2xl mx-auto">获取最新的写作进展、世界观设定和独家内容，直接发送到你的神经接口或邮箱。</p>
-                
-                <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-                    <input type="email" placeholder="你的神经ID或电子邮箱" class="flex-grow px-4 py-3 bg-dark-base border border-neon-blue/50 rounded-lg focus:outline-none focus:border-neon-blue text-white">
-                    <button type="submit" class="px-6 py-3 bg-neon-blue hover:bg-neon-blue/80 text-dark-base font-medium rounded-lg transition-all duration-300 whitespace-nowrap">
-                        加入观察名单 <i class="fa fa-rocket ml-2"></i>
-                    </button>
-                </form>
-                
-                <p class="text-xs text-gray-400 mt-4">我们尊重你的隐私，绝不会分享你的信息。你可以随时取消订阅。</p>
-            </div>
-        </section>
-    </main>
-
-    <footer class="py-12 bg-dark-base border-t border-neon-blue/20 relative z-10">
-        <div class="container mx-auto px-4 sm:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="md:col-span-2">
-                    <h3 class="text-xl font-orbitron font-bold mb-4 text-white">
-                        <span class="text-neon-blue">DAXON</span> 
-                        <span class="text-neon-purple">REI</span>
-                    </h3>
-                    <p class="text-gray-400 mb-6 max-w-md">探索未来社会的虚构观察者，定居火星的科幻小说家。</p>
-                    <div class="flex gap-4">
-                        <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-neon-purple transition-colors duration-300">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-neon-pink transition-colors duration-300">
-                            <i class="fa fa-youtube-play"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-neon-green transition-colors duration-300">
-                            <i class="fa fa-linkedin"></i>
-                        </a>
-                    </div>
-                </div>
-                
                 <div>
-                    <h4 class="text-white font-medium mb-4">导航</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">首页</a></li>
-                        <li><a href="#journal" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">创作日记</a></li>
-                        <li><a href="#concepts" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">脑洞设定</a></li>
-                        <li><a href="#ai-collab" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">AI共创</a></li>
-                        <li><a href="#messages" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">读者留言</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">关于作者</a></li>
-                    </ul>
+                  <h4 class="font-medium font-display text-neutral-600">东京塔</h4>
+                  <p class="text-sm text-neutral-500">东京的标志性建筑，可俯瞰城市全景</p>
                 </div>
-                
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
                 <div>
-                    <h4 class="text-white font-medium mb-4">资源</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">全部作品</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">世界观设定集</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">创作工具</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">公开演讲</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">媒体采访</a></li>
-                    </ul>
+                  <h4 class="font-medium font-display text-neutral-600">浅草寺</h4>
+                  <p class="text-sm text-neutral-500">东京最古老的寺庙，充满传统氛围</p>
                 </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">涩谷十字路口</h4>
+                  <p class="text-sm text-neutral-500">世界上最繁忙的人行横道之一</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 大阪卡片 -->
+        <div class="bg-white rounded-xl overflow-hidden card-shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1036/600/400" alt="大阪城市景观" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">大阪</h3>
+            <p class="text-neutral-500 mb-4">关西地区的门户，以美食和热情闻名</p>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">大阪城</h4>
+                  <p class="text-sm text-neutral-500">日本标志性城堡，历史与自然的完美结合</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">道顿堀</h4>
+                  <p class="text-sm text-neutral-500">大阪著名的美食街，充满活力的夜生活区</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">环球影城</h4>
+                  <p class="text-sm text-neutral-500">备受欢迎的主题公园，适合全家游玩</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 京都卡片 -->
+        <div class="bg-white rounded-xl overflow-hidden card-shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1037/600/400" alt="京都古寺" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">京都</h3>
+            <p class="text-neutral-500 mb-4">日本文化之都，拥有众多历史古迹和寺庙</p>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">清水寺</h4>
+                  <p class="text-sm text-neutral-500">建于悬崖之上的古老寺庙，景色壮观</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">金阁寺</h4>
+                  <p class="text-sm text-neutral-500">金箔覆盖的三层楼阁，倒映湖面美不胜收</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">伏见稻荷大社</h4>
+                  <p class="text-sm text-neutral-500">千本鸟居闻名世界，是热门旅游景点</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 名古屋卡片 -->
+        <div class="bg-white rounded-xl overflow-hidden card-shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1038/600/400" alt="名古屋城" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">名古屋</h3>
+            <p class="text-neutral-500 mb-4">中部地区的中心城市，兼具历史与现代魅力</p>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">名古屋城</h4>
+                  <p class="text-sm text-neutral-500">日本三大名城之一，以金鯱装饰闻名</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">热田神宫</h4>
+                  <p class="text-sm text-neutral-500">日本最重要的神宫之一，供奉三大神器</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">乐高乐园</h4>
+                  <p class="text-sm text-neutral-500">以乐高积木为主题的乐园，适合亲子游</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 北海道札幌卡片 -->
+        <div class="bg-white rounded-xl overflow-hidden card-shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1039/600/400" alt="札幌雪景" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">札幌</h3>
+            <p class="text-neutral-500 mb-4">北海道的首府，以冰雪节和美食闻名</p>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">札幌冰雪节</h4>
+                  <p class="text-sm text-neutral-500">世界著名的冬季盛会，展示巨大冰雕雪像</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">大通公园</h4>
+                  <p class="text-sm text-neutral-500">贯穿市中心的公园，四季皆有特色</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">白色恋人公园</h4>
+                  <p class="text-sm text-neutral-500">以著名饼干命名的主题公园和博物馆</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 冲绳那霸卡片 -->
+        <div class="bg-white rounded-xl overflow-hidden card-shadow hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+          <div class="h-48 overflow-hidden">
+            <img src="https://picsum.photos/id/1040/600/400" alt="冲绳海滩" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">冲绳那霸</h3>
+            <p class="text-neutral-500 mb-4">日本的热带天堂，拥有美丽的海滩和独特文化</p>
+            <div class="space-y-3">
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">首里城</h4>
+                  <p class="text-sm text-neutral-500">琉球王国的象征，融合中日建筑风格</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">万座毛</h4>
+                  <p class="text-sm text-neutral-500">悬崖上的美丽海滩，可欣赏壮阔海景</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div class="bg-primary/10 p-2 rounded-full mr-3">
+                  <i class="fa fa-map-marker text-primary"></i>
+                </div>
+                <div>
+                  <h4 class="font-medium font-display text-neutral-600">美国村</h4>
+                  <p class="text-sm text-neutral-500">充满美式风情的休闲娱乐区</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-12">
+        <button class="bg-white border border-primary text-primary hover:bg-primary hover:text-white transition-colors duration-300 px-6 py-3 rounded-lg font-medium">
+          查看更多城市
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 实用生存指南 -->
+  <section id="survival-guide" class="py-16 bg-neutral-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-[clamp(2rem,3vw,3rem)] font-bold font-display text-neutral-600 mb-4 text-shadow">实用生存指南</h2>
+        <p class="text-lg text-neutral-500 max-w-2xl mx-auto">轻松应对日本旅行中的各种实际问题</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- 支付 -->
+        <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+          <div class="flex items-center mb-6">
+            <div class="bg-secondary/10 p-3 rounded-full mr-4">
+              <i class="fa fa-credit-card text-secondary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-neutral-600">支付方式</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">现状说明</h4>
+              <p class="text-neutral-500">日本仍广泛使用现金，但主要城市的大型商店已支持信用卡。移动支付普及率正在提高。</p>
             </div>
             
-            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-500 text-sm">© 2025 Daxon Rei. 保留所有权利。</p>
-                <div class="flex gap-6 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">隐私政策</a>
-                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">使用条款</a>
-                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Cookie政策</a>
-                </div>
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">解决方案</h4>
+              <ul class="list-disc pl-5 text-neutral-500 space-y-2">
+                <li>准备足够现金，特别是在小城市和乡村地区</li>
+                <li>携带Visa或Mastercard信用卡，大部分商场和酒店接受</li>
+                <li>部分便利店和大型商店支持支付宝和微信支付</li>
+                <li>在7-11、Lawson等便利店的ATM可使用国际银行卡取款</li>
+              </ul>
             </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">注意事项</h4>
+              <p class="text-neutral-500">日本的ATM并非都支持国际卡，建议优先选择7-11、FamilyMart等便利店的ATM。</p>
+            </div>
+          </div>
         </div>
-    </footer>
+        
+        <!-- 交通 -->
+        <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+          <div class="flex items-center mb-6">
+            <div class="bg-secondary/10 p-3 rounded-full mr-4">
+              <i class="fa fa-subway text-secondary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-neutral-600">交通出行</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">城际交通</h4>
+              <ul class="list-disc pl-5 text-neutral-500 space-y-2">
+                <li>新干线：日本高速列车，覆盖主要城市，可提前在JR窗口或线上预订</li>
+                <li>JR Pass：针对外国游客的铁路通票，适合跨区域旅行，需在出发前购买</li>
+                <li>长途巴士：比新干线便宜，适合预算有限的旅行者</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">市内交通</h4>
+              <ul class="list-disc pl-5 text-neutral-500 space-y-2">
+                <li>地铁：东京、大阪等大城市的主要交通方式，可购买一日券</li>
+                <li>巴士：覆盖范围广，适合地铁未到达的区域</li>
+                <li>出租车：费用较高，车门多为自动开关</li>
+                <li>共享单车：部分城市提供，需下载对应App</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">实用App</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">Google地图</span>
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">Japan Travel by NAVITIME</span>
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">换乘案内</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 住宿 -->
+        <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+          <div class="flex items-center mb-6">
+            <div class="bg-secondary/10 p-3 rounded-full mr-4">
+              <i class="fa fa-bed text-secondary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-neutral-600">住宿指南</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">住宿类型</h4>
+              <ul class="list-disc pl-5 text-neutral-500 space-y-2">
+                <li>酒店：从经济型到豪华型应有尽有，服务完善</li>
+                <li>民宿：可体验当地生活，部分提供自助厨房</li>
+                <li>胶囊旅馆：经济实惠，适合独自旅行的游客</li>
+                <li>温泉旅馆：传统日式住宿，提供温泉和和服体验</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">预订平台</h4>
+              <div class="flex flex-wrap gap-2">
+                <a href="#" class="bg-neutral-100 px-3 py-1 rounded-full text-sm text-neutral-600 hover:bg-secondary hover:text-white transition-colors">Booking.com</a>
+                <a href="#" class="bg-neutral-100 px-3 py-1 rounded-full text-sm text-neutral-600 hover:bg-secondary hover:text-white transition-colors">Agoda</a>
+                <a href="#" class="bg-neutral-100 px-3 py-1 rounded-full text-sm text-neutral-600 hover:bg-secondary hover:text-white transition-colors">Jalan.net</a>
+                <a href="#" class="bg-neutral-100 px-3 py-1 rounded-full text-sm text-neutral-600 hover:bg-secondary hover:text-white transition-colors">e路东瀛</a>
+              </div>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">注意事项</h4>
+              <p class="text-neutral-500">日式住宿通常需要脱鞋进入房间，部分民宿有严格的入住和退房时间，请提前确认。</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 网络 -->
+        <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+          <div class="flex items-center mb-6">
+            <div class="bg-secondary/10 p-3 rounded-full mr-4">
+              <i class="fa fa-wifi text-secondary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-neutral-600">网络与通讯</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">上网方式</h4>
+              <ul class="list-disc pl-5 text-neutral-500 space-y-2">
+                <li>购买SIM卡：在机场或提前在线购买，提供4G流量</li>
+                <li>随身WiFi：可在机场租赁，适合多人共用</li>
+                <li>免费WiFi：部分商场、餐厅和车站提供，但覆盖有限</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">推荐产品</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">达摩移动SIM卡</span>
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">eSIM Japan</span>
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">Pocket WiFi</span>
+              </div>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">注意事项</h4>
+              <p class="text-neutral-500">建议在出发前购买或预订，机场价格通常较高。日本的手机频段与中国大部分智能手机兼容。</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 语言 -->
+        <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+          <div class="flex items-center mb-6">
+            <div class="bg-secondary/10 p-3 rounded-full mr-4">
+              <i class="fa fa-language text-secondary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-neutral-600">语言沟通</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">现状说明</h4>
+              <p class="text-neutral-500">日语是主要语言，英语普及度在旅游区较高，但在小城市和乡村地区沟通可能存在困难。</p>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">实用工具</h4>
+              <ul class="list-disc pl-5 text-neutral-500 space-y-2">
+                <li>翻译App：谷歌翻译、百度翻译（建议下载日语离线包）</li>
+                <li>图片翻译：微软翻译（可直接翻译菜单等图片内容）</li>
+                <li>旅游翻译机：如科大讯飞翻译机，实时翻译效果好</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">小技巧</h4>
+              <p class="text-neutral-500">日本很多标识有汉字，可尝试猜测意思。准备一些常用短语的日语写法，必要时可手写交流。</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 其他实用贴士 -->
+        <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+          <div class="flex items-center mb-6">
+            <div class="bg-secondary/10 p-3 rounded-full mr-4">
+              <i class="fa fa-lightbulb-o text-secondary text-xl"></i>
+            </div>
+            <h3 class="text-xl font-bold font-display text-neutral-600">其他实用贴士</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">必备App</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">Google地图</span>
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">谷歌翻译</span>
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">日本地铁</span>
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">日本旅游</span>
+                <span class="bg-neutral-100 px-3 py-1 rounded-full text-sm">乐天旅行</span>
+              </div>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">礼仪与习惯</h4>
+              <ul class="list-disc pl-5 text-neutral-500 space-y-2">
+                <li>进入室内通常需要脱鞋，留意是否有"脱鞋"标识</li>
+                <li>在公共场所保持安静，特别是在交通工具上</li>
+                <li>垃圾需自行带走，街头垃圾桶较少</li>
+                <li>用餐前说"いただきます"(我开动了)是礼貌的表现</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 class="font-medium font-display text-neutral-600 mb-2">电源与插座</h4>
+              <p class="text-neutral-500">日本使用100V电压，插头为两脚扁型，与中国的两相插头兼容，但三相插头需要转换器。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Initialize Chart.js for writing statistics
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('writingChart').getContext('2d');
-            const writingChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
-                    datasets: [{
-                        label: '人类创作字数',
-                        data: [3200, 4500, 3800, 5200, 4900, 6100],
-                        borderColor: '#00f0ff',
-                        backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                        tension: 0.3,
-                        fill: true
-                    }, {
-                        label: 'AI辅助字数',
-                        data: [1200, 1800, 1500, 2300, 2100, 2700],
-                        borderColor: '#bf00ff',
-                        backgroundColor: 'rgba(191, 0, 255, 0.1)',
-                        tension: 0.3,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#f0f0f0'
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#f0f0f0'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.1)'
-                            },
-                            ticks: {
-                                color: '#f0f0f0'
-                            }
-                        }
-                    }
-                }
-            });
-        });
+  <!-- 紧急联系方式 -->
+  <section id="emergency" class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-[clamp(2rem,3vw,3rem)] font-bold font-display text-neutral-600 mb-4 text-shadow">紧急联络方式</h2>
+        <p class="text-lg text-neutral-500 max-w-2xl mx-auto">旅行中需要帮助时，请拨打以下电话</p>
+      </div>
+      
+      <div class="max-w-2xl mx-auto">
+        <div class="bg-primary/5 rounded-xl p-8 border border-primary/20">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+              <div class="bg-red-100 p-3 rounded-full mr-4">
+                <i class="fa fa-ambulance text-red-500"></i>
+              </div>
+              <div>
+                <h3 class="font-medium font-display text-neutral-600">救护、消防</h3>
+                <p class="text-primary font-bold text-lg">119</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+              <div class="bg-blue-100 p-3 rounded-full mr-4">
+                <i class="fa fa-shield text-blue-500"></i>
+              </div>
+              <div>
+                <h3 class="font-medium font-display text-neutral-600">警察</h3>
+                <p class="text-primary font-bold text-lg">110</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+              <div class="bg-green-100 p-3 rounded-full mr-4">
+                <i class="fa fa-info-circle text-green-500"></i>
+              </div>
+              <div>
+                <h3 class="font-medium font-display text-neutral-600">旅游信息</h3>
+                <p class="text-primary font-bold text-lg">0570-000-606</p>
+              </div>
+            </div>
+            
+            <div class="flex items-center p-3 bg-white rounded-lg shadow-sm">
+              <div class="bg-purple-100 p-3 rounded-full mr-4">
+                <i class="fa fa-phone text-purple-500"></i>
+              </div>
+              <div>
+                <h3 class="font-medium font-display text-neutral-600">国际电话</h3>
+                <p class="text-primary font-bold text-lg">001/0041/0061</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mt-8">
+            <h3 class="font-medium font-display text-neutral-600 mb-4">中国大使馆联系方式</h3>
+            <div class="flex items-start p-3 bg-white rounded-lg shadow-sm">
+              <div class="bg-blue-100 p-3 rounded-full mr-4 mt-1">
+                <i class="fa fa-flag text-blue-500"></i>
+              </div>
+              <div>
+                <h4 class="font-medium font-display text-neutral-600">中国驻日本大使馆</h4>
+                <p class="text-sm text-neutral-500 mt-1">地址：东京都港区元麻布3-4-33</p>
+                <p class="text-sm text-neutral-500 mt-1">电话：+81-3-3403-3064（工作时间）</p>
+                <p class="text-sm text-neutral-500 mt-1">紧急电话：+81-90-5705-6858（24小时）</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+  <!-- 常用日语短语 -->
+  <section id="phrasebook" class="py-16 bg-neutral-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-[clamp(2rem,3vw,3rem)] font-bold font-display text-neutral-600 mb-4 text-shadow">常用日语短语</h2>
+        <p class="text-lg text-neutral-500 max-w-2xl mx-auto">旅行中可能用到的基本日语表达</p>
+      </div>
+      
+      <div class="max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-4">问候与礼貌用语</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">こんにちは</p>
+                  <p class="text-sm text-neutral-500">Konnichiwa</p>
+                </div>
+                <p class="text-neutral-600">你好</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">ありがとう</p>
+                  <p class="text-sm text-neutral-500">Arigatou</p>
+                </div>
+                <p class="text-neutral-600">谢谢</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">すみません</p>
+                  <p class="text-sm text-neutral-500">Sumimasen</p>
+                </div>
+                <p class="text-neutral-600">对不起/打扰了</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">はい / いいえ</p>
+                  <p class="text-sm text-neutral-500">Hai / Iie</p>
+                </div>
+                <p class="text-neutral-600">是 / 不是</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-4">实用短语</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">英語が話せますか</p>
+                  <p class="text-sm text-neutral-500">Eigo ga hanasemasu ka</p>
+                </div>
+                <p class="text-neutral-600">你会说英语吗？</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">いくらですか</p>
+                  <p class="text-sm text-neutral-500">Ikura desu ka</p>
+                </div>
+                <p class="text-neutral-600">多少钱？</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">どこですか</p>
+                  <p class="text-sm text-neutral-500">Doko desu ka</p>
+                </div>
+                <p class="text-neutral-600">在哪里？</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">トイレはどこですか</p>
+                  <p class="text-sm text-neutral-500">Toire wa doko desu ka</p>
+                </div>
+                <p class="text-neutral-600">厕所在哪里？</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-4">餐饮相关</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">メニューをください</p>
+                  <p class="text-sm text-neutral-500">Menyuu wo kudasai</p>
+                </div>
+                <p class="text-neutral-600">请给我菜单</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">おいしいです</p>
+                  <p class="text-sm text-neutral-500">Oishii desu</p>
+                </div>
+                <p class="text-neutral-600">很好吃</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">お会計をお願いします</p>
+                  <p class="text-sm text-neutral-500">Okaikei wo onegaishimasu</p>
+                </div>
+                <p class="text-neutral-600">请结账</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">水をください</p>
+                  <p class="text-sm text-neutral-500">Mizu wo kudasai</p>
+                </div>
+                <p class="text-neutral-600">请给我水</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 card-shadow hover:shadow-lg transition-all duration-300">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-4">交通相关</h3>
+            <div class="space-y-4">
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">〇〇へ行きたいです</p>
+                  <p class="text-sm text-neutral-500">〇〇 e ikitai desu</p>
+                </div>
+                <p class="text-neutral-600">我想去〇〇</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">バス停はどこですか</p>
+                  <p class="text-sm text-neutral-500">Basutei wa doko desu ka</p>
+                </div>
+                <p class="text-neutral-600">公交站在哪里？</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">切符をください</p>
+                  <p class="text-sm text-neutral-500">Kippu wo kudasai</p>
+                </div>
+                <p class="text-neutral-600">请给我票</p>
+              </div>
+              
+              <div class="flex justify-between items-center p-3 bg-neutral-50 rounded-lg">
+                <div>
+                  <p class="font-medium font-display text-neutral-600">何時に着きますか</p>
+                  <p class="text-sm text-neutral-500">Nanji ni tsukimasu ka</p>
+                </div>
+                <p class="text-neutral-600">几点到达？</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- 页脚 -->
+  <footer class="bg-neutral-600 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fa fa-map-marker text-white text-2xl"></i>
+            <h3 class="text-xl font-bold font-display">日本旅行指南</h3>
+          </div>
+          <p class="text-neutral-300 mb-4">为中国游客提供全面的日本旅行信息，助您轻松畅游日本</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-neutral-300 hover:text-white transition-colors">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="text-neutral-300 hover:text-white transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="text-neutral-300 hover:text-white transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="text-neutral-300 hover:text-white transition-colors">
+              <i class="fa fa-youtube-play"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold font-display mb-4">快速链接</h4>
+          <ul class="space-y-2">
+            <li><a href="#city-guide" class="text-neutral-300 hover:text-white transition-colors">城市景点</a></li>
+            <li><a href="#survival-guide" class="text-neutral-300 hover:text-white transition-colors">实用指南</a></li>
+            <li><a href="#emergency" class="text-neutral-300 hover:text-white transition-colors">紧急联络</a></li>
+            <li><a href="#phrasebook" class="text-neutral-300 hover:text-white transition-colors">常用短语</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold font-display mb-4">旅行资源</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-neutral-300 hover:text-white transition-colors">旅行贴士</a></li>
+            <li><a href="#" class="text-neutral-300 hover:text-white transition-colors">安全指南</a></li>
+            <li><a href="#" class="text-neutral-300 hover:text-white transition-colors">文化礼仪</a></li>
+            <li><a href="#" class="text-neutral-300 hover:text-white transition-colors">季节指南</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold font-display mb-4">订阅更新</h4>
+          <p class="text-neutral-300 mb-4">订阅我们的 newsletter，获取最新日本旅行资讯</p>
+          <form class="flex">
+            <input type="email" placeholder="您的邮箱地址" class="px-4 py-2 rounded-l-lg w-full focus:outline-none text-neutral-600">
+            <button type="submit" class="bg-primary hover:bg-primary/90 px-4 py-2 rounded-r-lg transition-colors">
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-neutral-500 mt-12 pt-8 text-center text-neutral-400">
+        <p>© 2025 日本旅行指南 版权所有</p>
+      </div>
+    </div>
+  </footer>
 
-    </body></html>
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2');
+      }
+    });
+    
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // 关闭移动菜单
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+    
