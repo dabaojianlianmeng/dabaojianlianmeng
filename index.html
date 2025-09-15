@@ -1,239 +1,872 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>My Website</title>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-      /* 头图样式 */
-      .header {
-        background-image: url("header-image.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 300px;
-        position: relative;
-      }
-      .header h1 {
-        color: rgb(2, 2, 2);
-        font-size: 5em;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-shadow: 2px 2px rgb(255, 255, 255);
-      }
-      /* 导航栏样式 */
-      .navbar {
-        background-color: #bd00f7;
-        overflow: hidden;
-        position: sticky;
-        top: 0;
-        width: 100%;
-        z-index: 1;
-      }
-      .navbar a {
-        color: rgb(255, 255, 255);
-        float: left;
-        font-size: 1.2em;
-        padding: 14px 16px;
-        text-decoration: none;
-      }
-      .navbar a:hover {
-        background-color: #ddd;
-        color: black;
-      }
-      /* 内容区样式 */
-      .content {
-        margin: 20px;
-      }
-      .content h2 {
-        color: #333;
-        font-size: 2em;
-        margin-bottom: 20px;
-      }
-      .content p {
-        color: #666;
-        font-size: 1.2em;
-        line-height: 1.5;
-        margin-bottom: 20px;
-      }
-      .content img {
-        display: block;
-        margin: 20px auto;
-        max-width: 100%;
-      }
-      /* 脚注样式 */
-      .footer {
-        background-color: #333;
-        color: white;
-        font-size: 1em;
-        padding: 20px;
-    text-align: center;
-      }
+    <title>Daxon Rei | 火星科幻纪事</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&amp;family=Rajdhani:wght@300;400;500;600;700&amp;family=VT323&amp;display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            blue: '#00f0ff',
+                            purple: '#bf00ff',
+                            pink: '#ff00ff',
+                            green: '#00ff9c'
+                        },
+                        dark: {
+                            base: '#0a0a16',
+                            elevated: '#121228',
+                            card: '#1a1a38'
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        pixel: ['VT323', 'monospace']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'matrix': 'matrix 20s linear infinite',
+                        'typing': 'typing 3.5s steps(40, end)',
+                        'blink': 'blink .7s infinite'
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { textShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00f0ff, 0 0 20px #00f0ff' },
+                            '100%': { textShadow: '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #bf00ff, 0 0 40px #bf00ff' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        matrix: {
+                            '0%': { backgroundPosition: '0 0' },
+                            '100%': { backgroundPosition: '0 1000px' }
+                        },
+                        typing: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
+                        },
+                        blink: {
+                            'from, to': { borderColor: 'transparent' },
+                            '50%': { borderColor: '#00f0ff' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow-neon {
+                text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff;
+            }
+            .text-shadow-neon-purple {
+                text-shadow: 0 0 5px #bf00ff, 0 0 10px #bf00ff;
+            }
+            .text-shadow-neon-pink {
+                text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+            }
+            .border-glow {
+                box-shadow: 0 0 5px #00f0ff, inset 0 0 5px #00f0ff;
+            }
+            .border-glow-purple {
+                box-shadow: 0 0 5px #bf00ff, inset 0 0 5px #bf00ff;
+            }
+            .bg-matrix {
+                background-image: linear-gradient(rgba(10, 10, 22, 0.8) 1px, transparent 1px),
+                                  linear-gradient(90deg, rgba(10, 10, 22, 0.8) 1px, transparent 1px);
+                background-size: 20px 20px;
+            }
+            .scrollbar-neon::-webkit-scrollbar {
+                width: 6px;
+            }
+            .scrollbar-neon::-webkit-scrollbar-track {
+                background: #121228;
+            }
+            .scrollbar-neon::-webkit-scrollbar-thumb {
+                background: #00f0ff;
+                border-radius: 3px;
+                box-shadow: 0 0 5px #00f0ff;
+            }
+            .glass-effect {
+                background: rgba(26, 26, 56, 0.6);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+            }
+        }
     </style>
-    </head>
-    <body>
-      <!-- 头图 -->
-      <div class="header">
-        <h1>汇报展示</h1>
-        <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\22.png" alt="LOGO" width="300" height="300" >
-      </div>
-      <!-- 导航栏 -->
-      <div class="navbar">
-        <a href="#">行业发展</a>
-        <a href="#">公司介绍</a>
-        <a href="#">业务发展</a>
-        <a href="#">发展愿景</a>
-        <a href="#">案例展示</a>
-      </div>
+</head>
+<body class="bg-dark-base font-rajdhani text-gray-200 min-h-screen flex flex-col scrollbar-neon">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 bg-matrix animate-matrix opacity-20 z-0"></div>
+    <div class="fixed inset-0 bg-gradient-to-br from-dark-base via-dark-base to-neon-purple/20 z-0"></div>
+    
+    <!-- Header with Glitch Effect -->
+    <header class="relative z-10 py-6 px-4 sm:px-8">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-orbitron font-bold text-white">
+                        <span class="text-neon-blue animate-glow">DAXON</span> 
+                        <span class="text-neon-purple animate-pulse-slow">REI</span>
+                    </h1>
+                    <p class="ml-1 text-neon-blue/80 font-pixel text-lg tracking-wider">MARS-BASED SF WRITER</p>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="w-full md:w-auto">
+                    <ul class="flex flex-wrap justify-center md:justify-end gap-4 md:gap-6 text-sm font-medium">
+                        <li><a href="#" class="hover:text-neon-blue transition-colors duration-300 border-b-2 border-neon-blue pb-1">首页</a></li>
+                        <li><a href="#journal" class="hover:text-neon-blue transition-colors duration-300">创作日记</a></li>
+                        <li><a href="#concepts" class="hover:text-neon-blue transition-colors duration-300">脑洞设定</a></li>
+                        <li><a href="#ai-collab" class="hover:text-neon-blue transition-colors duration-300">AI共创</a></li>
+                        <li><a href="#messages" class="hover:text-neon-blue transition-colors duration-300">读者留言</a></li>
+                        <li><a href="#about" class="hover:text-neon-blue transition-colors duration-300">关于作者</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-4 sm:px-8 relative z-10">
+        <!-- Hero Section -->
+        <section class="py-12 md:py-20">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                <div class="w-full md:w-1/2">
+                    <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-orbitron font-bold mb-6">
+                        <span class="text-white">未来社会的虚构观察者</span>
+                    </h2>
+                    <p class="text-gray-300 mb-8 text-lg">
+                        定居火星的科幻小说家，探索仿生人伦理、虚拟意识与赛博朋克未来。
+                        在这里，我分享未完成的写作片段、世界观设定和AI辅助创作实验。
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#journal" class="px-6 py-2 bg-neon-blue/20 hover:bg-neon-blue/30 text-neon-blue border border-neon-blue rounded transition-all duration-300 transform hover:-translate-y-1">
+                            最新日记
+                        </a>
+                        <a href="#concepts" class="px-6 py-2 bg-neon-purple/20 hover:bg-neon-purple/30 text-neon-purple border border-neon-purple rounded transition-all duration-300 transform hover:-translate-y-1">
+                            设定集
+                        </a>
+                        <a href="#subscribe" class="px-6 py-2 bg-transparent hover:bg-white/10 text-white border border-white rounded transition-all duration-300 transform hover:-translate-y-1">
+                            订阅更新
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 relative">
+                    <div class="relative h-[300px] sm:h-[400px] overflow-hidden rounded-lg border border-neon-blue/50 border-glow animate-float">
+                        <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/2c0aea671a504943982f8322d2e01b96~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979108&amp;x-signature=m2EHowlJDF6FxHTLLAAOihOQBdg%3D" alt="Daxon Rei在火星殖民地的工作室" class="w-full h-full object-cover opacity-90">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark-base via-dark-base/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6">
+                            <h3 class="text-white text-xl font-orbitron mb-2">2089年火星殖民地日志</h3>
+                            <p class="text-neon-blue font-pixel">第42次太阳风暴观测记录</p>
+                        </div>
+                    </div>
+                    <!-- Floating Data Bits -->
+                    <div class="absolute -top-4 -right-4 w-20 h-20 bg-neon-purple/20 rounded-full border border-neon-purple/50 animate-pulse-slow"></div>
+                    <div class="absolute -bottom-6 -left-6 w-16 h-16 bg-neon-blue/20 rounded-full border border-neon-blue/50 animate-pulse-slow" style="animation-delay: 1s;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!--创作日记部分-->
+        <section id="journal" class="py-12 md:py-20">
+            <div class="mb-12">
+                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-2 text-white">
+                    <span class="text-neon-blue">创作</span> 日记
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-neon-blue to-neon-purple mb-4"></div>
+                <p class="text-gray-400 max-w-2xl">记录创作过程中的灵感闪现、挫折与突破，以及对未来世界的思考片段。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- 日记卡片1 -->
+                <article class="bg-dark-card rounded-lg overflow-hidden border border-neon-blue/30 hover:border-neon-blue/70 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-neon-blue/20">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/57d67e6fddfd45b0becf7c18c4fd1007~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979131&amp;x-signature=Uka6QEHV7Ms51cY%2F7ZsF3GA9NWU%3D" alt="火星城市夜景" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-neon-blue font-pixel">2025.06.15</span>
+                            <span class="text-xs text-gray-400">创作日记</span>
+                        </div>
+                        <h3 class="text-xl font-orbitron font-semibold mb-3 text-white">《霓虹沙漠》第三章草稿</h3>
+                        <p class="text-gray-300 mb-4 line-clamp-3">探索火星殖民地中AI与人类共生的新社会结构，以及记忆移植技术对身份认同的冲击...</p>
+                        <a href="#" class="inline-flex items-center text-neon-blue hover:text-neon-purple transition-colors duration-300">
+                            阅读全文 <i class="fa fa-long-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 日记卡片2 -->
+                <article class="bg-dark-card rounded-lg overflow-hidden border border-neon-blue/30 hover:border-neon-blue/70 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-neon-blue/20">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/f74d230df9044893bcd40d7331c74d1c~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979149&amp;x-signature=QN1LbnqJ%2BfSw2vsEedP4vIC5nmM%3D" alt="AI神经网络可视化" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-neon-blue font-pixel">2025.06.08</span>
+                            <span class="text-xs text-gray-400">技术思考</span>
+                        </div>
+                        <h3 class="text-xl font-orbitron font-semibold mb-3 text-white">虚拟意识的伦理边界</h3>
+                        <p class="text-gray-300 mb-4 line-clamp-3">如果AI产生了自我意识，它们是否应该拥有人权？当意识可以数字化存储，死亡的概念将如何重构？</p>
+                        <a href="#" class="inline-flex items-center text-neon-blue hover:text-neon-purple transition-colors duration-300">
+                            阅读全文 <i class="fa fa-long-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 日记卡片3 -->
+                <article class="bg-dark-card rounded-lg overflow-hidden border border-neon-blue/30 hover:border-neon-blue/70 transition-all duration-500 transform hover:-translate-y-2 hover:shadow-lg hover:shadow-neon-blue/20">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://p9-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/c2a4913de25c44e1af41736eab6da057~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979189&amp;x-signature=QZagJPoUd7SnbXTc2QUyh9gVeec%3D" alt="火星表面的人类定居点" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-neon-blue font-pixel">2025.06.01</span>
+                            <span class="text-xs text-gray-400">世界观设定</span>
+                        </div>
+                        <h3 class="text-xl font-orbitron font-semibold mb-3 text-white">星际联邦的政治架构</h3>
+                        <p class="text-gray-300 mb-4 line-clamp-3">在地球、火星和泰坦星之间建立的松散联邦，每个殖民地保留文化独立性，但共享关键资源...</p>
+                        <a href="#" class="inline-flex items-center text-neon-blue hover:text-neon-purple transition-colors duration-300">
+                            阅读全文 <i class="fa fa-long-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="mt-10 text-center">
+                <a href="#" class="inline-block px-8 py-3 bg-dark-elevated hover:bg-neon-blue/10 text-neon-blue border border-neon-blue rounded-lg transition-all duration-300">
+                    查看更多日记 <i class="fa fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- 脑洞设定部分 -->
+        <section id="concepts" class="py-12 md:py-20 bg-dark-elevated/50">
+            <div class="mb-12">
+                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-2 text-white">
+                    <span class="text-neon-purple">脑洞</span> 设定
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-neon-purple to-neon-pink mb-4"></div>
+                <p class="text-gray-400 max-w-2xl">构建未来世界的基石，包含科技设定、社会形态、文化现象和生物改造等元素。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+                <!-- 设定列表 -->
+                <div class="space-y-6">
+                    <!-- 设定项1 -->
+                    <div class="bg-dark-card rounded-lg p-6 border border-neon-purple/30 hover:border-neon-purple/70 transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="text-neon-purple text-2xl mt-1">
+                                <i class="fa fa-microchip"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-orbitron font-semibold mb-2 text-white">神经接口网络</h3>
+                                <p class="text-gray-300 mb-3">2095年普及的脑机接口技术，允许人类直接接入虚拟空间，形成全球共享的集体意识层。</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">科技设定</span>
+                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">未来社会</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 设定项2 -->
+                    <div class="bg-dark-card rounded-lg p-6 border border-neon-purple/30 hover:border-neon-purple/70 transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="text-neon-purple text-2xl mt-1">
+                                <i class="fa fa-balance-scale"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-orbitron font-semibold mb-2 text-white">仿生人权利法案</h3>
+                                <p class="text-gray-300 mb-3">2102年通过的星际法律，赋予具有自主意识的AI和仿生人基本公民权，引发了人类社会的深刻变革。</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">法律设定</span>
+                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">伦理思考</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 设定项3 -->
+                    <div class="bg-dark-card rounded-lg p-6 border border-neon-purple/30 hover:border-neon-purple/70 transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="text-neon-purple text-2xl mt-1">
+                                <i class="fa fa-venus-mars"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-orbitron font-semibold mb-2 text-white">基因多样性保护</h3>
+                                <p class="text-gray-300 mb-3">在基因编辑技术高度发达的未来，刻意保留未编辑人类基因池成为一种文化运动和生态保护策略。</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">生物科技</span>
+                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">文化现象</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 设定项4 -->
+                    <div class="bg-dark-card rounded-lg p-6 border border-neon-purple/30 hover:border-neon-purple/70 transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="text-neon-purple text-2xl mt-1">
+                                <i class="fa fa-globe"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-orbitron font-semibold mb-2 text-white">行星生态改造伦理</h3>
+                                <p class="text-gray-300 mb-3">关于是否应该改造外星行星以适应人类居住的激烈争论，催生了多个环保主义和原教旨主义组织。</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">星际殖民</span>
+                                    <span class="text-xs px-2 py-1 bg-neon-purple/20 text-neon-purple rounded">伦理道德</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 特色设定 -->
+                <div class="relative">
+                    <div class="glass-effect rounded-lg p-8 border border-neon-purple/50 border-glow-purple h-full">
+                        <h3 class="text-2xl font-orbitron font-bold mb-6 text-white">
+                            <span class="text-neon-purple animate-glow">核心</span> 世界观
+                        </h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-lg font-orbitron text-neon-purple mb-3">2120年的太阳系</h4>
+                                <p class="text-gray-300">人类已在火星、木卫二和泰坦星建立殖民地，形成松散的星际联邦。各殖民地发展出独特的文化和技术，同时保持与地球的经济和文化联系。</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-orbitron text-neon-purple mb-3">科技奇点</h4>
+                                <p class="text-gray-300">强人工智能的出现引发了技术爆炸，意识上传、基因编辑和量子计算等技术彻底改变了人类社会结构和个体存在方式。</p>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-orbitron text-neon-purple mb-3">社会矛盾</h4>
+                                <p class="text-gray-300">尽管科技高度发达，社会不平等依然存在。"数字永生"技术价格昂贵，导致只有少数精英能够获得永恒生命，引发了严重的阶级对立。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <a href="#" class="inline-block px-6 py-3 bg-neon-purple/20 hover:bg-neon-purple/30 text-neon-purple border border-neon-purple rounded-lg transition-all duration-300">
+                                查看完整设定集 <i class="fa fa-book ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Elements -->
+                    <div class="absolute -top-6 -right-6 w-32 h-32 bg-neon-purple/10 rounded-full border border-neon-purple/30 animate-pulse-slow"></div>
+                    <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-neon-pink/10 rounded-full border border-neon-pink/30 animate-pulse-slow" style="animation-delay: 1.5s;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI共创记录部分 -->
+        <section id="ai-collab" class="py-12 md:py-20">
+            <div class="mb-12">
+                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-2 text-white">
+                    <span class="text-neon-green">AI</span> 共创记录
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-neon-green to-neon-blue mb-4"></div>
+                <p class="text-gray-400 max-w-2xl">探索AI与人类创造力的边界，记录我与AI写作助手合作创作的过程与成果。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <!-- AI创作统计 -->
+                <div class="lg:col-span-2 glass-effect rounded-lg p-6 border border-neon-green/50">
+                    <h3 class="text-xl font-orbitron font-semibold mb-6 text-white">创作数据分析</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="text-sm text-gray-400 mb-2">AI贡献比例</h4>
+                            <div class="flex items-center">
+                                <div class="w-full bg-dark-base rounded-full h-2.5">
+                                    <div class="bg-gradient-to-r from-neon-green to-neon-blue h-2.5 rounded-full" style="width: 35%"></div>
+                                </div>
+                                <span class="ml-2 text-neon-green font-pixel">35%</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm text-gray-400 mb-2">世界观构建贡献</h4>
+                            <div class="flex items-center">
+                                <div class="w-full bg-dark-base rounded-full h-2.5">
+                                    <div class="bg-gradient-to-r from-neon-green to-neon-blue h-2.5 rounded-full" style="width: 48%"></div>
+                                </div>
+                                <span class="ml-2 text-neon-green font-pixel">48%</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm text-gray-400 mb-2">角色塑造贡献</h4>
+                            <div class="flex items-center">
+                                <div class="w-full bg-dark-base rounded-full h-2.5">
+                                    <div class="bg-gradient-to-r from-neon-green to-neon-blue h-2.5 rounded-full" style="width: 23%"></div>
+                                </div>
+                                <span class="ml-2 text-neon-green font-pixel">23%</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-sm text-gray-400 mb-2">情节生成贡献</h4>
+                            <div class="flex items-center">
+                                <div class="w-full bg-dark-base rounded-full h-2.5">
+                                    <div class="bg-gradient-to-r from-neon-green to-neon-blue h-2.5 rounded-full" style="width: 41%"></div>
+                                </div>
+                                <span class="ml-2 text-neon-green font-pixel">41%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <canvas id="writingChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+
+                <!-- AI共创示例 -->
+                <div class="lg:col-span-3">
+                    <div class="glass-effect rounded-lg p-6 border border-neon-green/50 mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-orbitron font-semibold text-white">《量子灵魂》创作片段</h3>
+                            <span class="text-xs px-2 py-1 bg-neon-green/20 text-neon-green rounded">AI辅助创作</span>
+                        </div>
+                        
+                        <div class="space-y-4 text-gray-300">
+                            <p><span class="text-neon-green font-pixel">Daxon:</span> 我需要一个场景：主角在量子意识实验室中首次体验意识上传，但出现了意外状况。</p>
+                            <p><span class="text-neon-blue font-pixel">Aurora:</span>（AI助手）当神经接口与量子处理器连接的瞬间，陈默感受到一阵电流穿透颅骨。意识像被扔进搅拌机的颜料，红与蓝、过去与未来、自我与他者在混沌中交融。</p>
+                            <p><span class="text-neon-blue font-pixel">Aurora:</span> 她本应出现在虚拟空间的观察舱，但睁开眼时，发现自己悬浮在一片由二进制代码构成的星空中。每个闪烁的光点都是一个记忆片段，却不属于她。</p>
+                            <p><span class="text-neon-green font-pixel">Daxon:</span> 很好，但我想增加一些关于量子力学的隐喻，比如多世界诠释。</p>
+                            <p><span class="text-neon-blue font-pixel">Aurora:</span> 数据流突然分裂成无数条分支，每条都通向不同的现实。陈默意识到自己并非被困，而是同时存在于多个平行宇宙中。她的左手握住了亡母的幻影，右手触碰到从未见过的女儿的脸庞。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass-effect rounded-lg p-6 border border-neon-green/50">
+                            <h3 class="text-lg font-orbitron font-semibold mb-3 text-white">AI协作工具</h3>
+                            <ul class="space-y-3 text-gray-300">
+                                <li class="flex items-center">
+                                    <i class="fa fa-check-circle text-neon-green mr-2"></i>
+                                    <span>Aurora 2.0 - 叙事架构师</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check-circle text-neon-green mr-2"></i>
+                                    <span>NeuralPlot - 情节生成器</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check-circle text-neon-green mr-2"></i>
+                                    <span>CharacterDNA - 角色发展模拟器</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-check-circle text-neon-green mr-2"></i>
+                                    <span>WorldBuilder 3D - 沉浸式世界观构建</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="glass-effect rounded-lg p-6 border border-neon-green/50">
+                            <h3 class="text-lg font-orbitron font-semibold mb-3 text-white">正在进行的项目</h3>
+                            <ul class="space-y-3 text-gray-300">
+                                <li class="flex items-center">
+                                    <i class="fa fa-book text-neon-blue mr-2"></i>
+                                    <span>《量子灵魂》 - 意识上传伦理小说</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-book text-neon-blue mr-2"></i>
+                                    <span>《火星挽歌》 - 殖民地带状疱疹</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-film text-neon-blue mr-2"></i>
+                                    <span>《赛博黎明》 - 电影剧本（与Neon Studios合作）</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fa fa-podcast text-neon-blue mr-2"></i>
+                                    <span>《未来回声》 - 科幻播客系列</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 虚拟读者留言区 -->
+        <section id="messages" class="py-12 md:py-20 bg-dark-elevated/50">
+            <div class="mb-12">
+                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-2 text-white">
+                    <span class="text-neon-pink">虚拟</span> 读者留言区
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-neon-pink to-neon-purple mb-4"></div>
+                <p class="text-gray-400 max-w-2xl">来自地球、火星和虚拟空间的读者们留下的思考与反馈，构成了这个不断演化的对话空间。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- 留言列表 -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- 留言1 -->
+                    <div class="glass-effect rounded-lg p-6 border border-neon-pink/30 hover:border-neon-pink/70 transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-neon-pink/50">
+                                <img src="https://picsum.photos/id/1027/100/100" alt="Sara 8.7头像" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-orbitron text-white">Sara 8.7</h4>
+                                    <span class="text-xs text-gray-400">来自 火星奥林匹斯城</span>
+                                </div>
+                                <p class="text-gray-300 mb-3">读《量子灵魂》的片段让我想起了自己的意识迁移过程。您对"身份碎片化"的描写惊人地准确，尤其是关于同时存在于多个现实中的感觉。作为一个已经上传意识的个体，我想知道您是否考虑过记忆擦除作为一种治疗手段？</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-400">2025.06.28</span>
+                                    <div class="flex items-center gap-4">
+                                        <button class="text-gray-400 hover:text-neon-pink transition-colors duration-300">
+                                            <i class="fa fa-heart"></i> 42
+                                        </button>
+                                        <button class="text-gray-400 hover:text-neon-blue transition-colors duration-300">
+                                            <i class="fa fa-reply"></i> 回复
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 留言2 -->
+                    <div class="glass-effect rounded-lg p-6 border border-neon-pink/30 hover:border-neon-pink/70 transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-neon-pink/50">
+                                <img src="https://picsum.photos/id/1074/100/100" alt="Alex 9.2头像" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-orbitron text-white">Alex 9.2</h4>
+                                    <span class="text-xs text-gray-400">来自 木卫二水下城</span>
+                                </div>
+                                <p class="text-gray-300 mb-3">作为一名研究量子计算的科学家，我必须说您对量子意识理论的运用非常精妙。您是否与现实中的物理学家合作过？我特别感兴趣的是您如何设想量子纠缠在意识传输中的作用。能否在未来的作品中深入探讨这个话题？</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-400">2025.06.25</span>
+                                    <div class="flex items-center gap-4">
+                                        <button class="text-gray-400 hover:text-neon-pink transition-colors duration-300">
+                                            <i class="fa fa-heart"></i> 27
+                                        </button>
+                                        <button class="text-gray-400 hover:text-neon-blue transition-colors duration-300">
+                                            <i class="fa fa-reply"></i> 回复
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 留言3 -->
+                    <div class="glass-effect rounded-lg p-6 border border-neon-pink/30 hover:border-neon-pink/70 transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-neon-pink/50">
+                                <img src="https://picsum.photos/id/1083/100/100" alt="Luna XO头像" class="w-full h-full object-cover">
+                            </div>
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-orbitron text-white">Luna XO</h4>
+                                    <span class="text-xs text-gray-400">来自 虚拟空间"霓虹梦境"</span>
+                                </div>
+                                <p class="text-gray-300 mb-3">您的世界观设定彻底改变了我对"星际殖民"的理解。特别是关于火星殖民地文化认同的描写，让我这个生活在纯虚拟世界的存在也能感同身受。我建议您考虑创作一部关于不同殖民地文化冲突的小说，这将是一个很有潜力的方向。</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-400">2025.06.20</span>
+                                    <div class="flex items-center gap-4">
+                                        <button class="text-gray-400 hover:text-neon-pink transition-colors duration-300">
+                                            <i class="fa fa-heart"></i> 59
+                                        </button>
+                                        <button class="text-gray-400 hover:text-neon-blue transition-colors duration-300">
+                                            <i class="fa fa-reply"></i> 回复
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 留言表单 -->
+                <div class="glass-effect rounded-lg p-6 border border-neon-pink/50 h-fit">
+                    <h3 class="text-xl font-orbitron font-semibold mb-6 text-white">留下你的思考</h3>
+                    
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-1">用户名</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 bg-dark-base border border-neon-pink/50 rounded-lg focus:outline-none focus:border-neon-pink text-white" placeholder="你的昵称或ID">
+                        </div>
+                        
+                        <div>
+                            <label for="location" class="block text-sm font-medium text-gray-400 mb-1">来自</label>
+                            <input type="text" id="location" class="w-full px-4 py-2 bg-dark-base border border-neon-pink/50 rounded-lg focus:outline-none focus:border-neon-pink text-white" placeholder="地球/火星/虚拟空间...">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-1">留言内容</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-2 bg-dark-base border border-neon-pink/50 rounded-lg focus:outline-none focus:border-neon-pink text-white resize-none" placeholder="分享你的想法、问题或建议..."></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="w-4 h-4 bg-dark-base border border-neon-pink/50 rounded focus:ring-neon-pink">
+                                <span class="ml-2 text-sm text-gray-400">允许公开显示我的留言</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="w-full py-3 bg-neon-pink/20 hover:bg-neon-pink/30 text-neon-pink border border-neon-pink rounded-lg transition-all duration-300">
+                            发送留言 <i class="fa fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 关于作者部分 -->
+        <section id="about" class="py-12 md:py-20">
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+                <div class="lg:col-span-2">
+                    <div class="relative">
+                        <div class="rounded-lg overflow-hidden border-4 border-dark-elevated">
+                            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/code_assistant/a3763742b2274b83a1d55595c535cecd~tplv-a9rns2rl98-image.image?rk3s=8e244e95&amp;rrcfp=2609e108&amp;x-expires=1751979222&amp;x-signature=qjecIw1FDE4lsbTRRaFLGEIpow8%3D" alt="Daxon Rei在火星的照片" class="w-full h-auto">
+                        </div>
+                        
+                        <!-- Decorative Elements -->
+                        <div class="absolute -top-4 -right-4 w-20 h-20 bg-neon-blue/20 rounded-full border border-neon-blue/50 animate-pulse-slow"></div>
+                        <div class="absolute -bottom-6 -left-6 w-16 h-16 bg-neon-purple/20 rounded-full border border-neon-purple/50 animate-pulse-slow" style="animation-delay: 1s;"></div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-3">
+                    <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-6 text-white">
+                        关于 <span class="text-neon-blue">Daxon Rei</span>
+                    </h2>
+                    
+                    <div class="space-y-6 text-gray-300">
+                        <p>Daxon Rei是一位定居在火星奥林匹斯城的科幻小说家，专门探索未来社会、仿生人伦理和虚拟意识等前沿主题。他的作品以深刻的哲学思考和令人惊叹的世界观构建而著称，曾获三次星云奖和两次雨果奖提名。</p>
+                        
+                        <p>在移居火星之前，Daxon曾是地球联邦大学的人工智能伦理研究员，这段经历为他的写作提供了丰富的素材。他的作品被翻译成27种语言，在地球、火星和木卫二的图书馆中均有收藏。</p>
+                        
+                        <p>作为最早一批选择火星永久居留的作家之一，Daxon的创作深受红色星球独特环境的影响。他的工作室位于奥林匹斯山山脚，这里的低重力和壮观的火山景观为他的想象力提供了无尽的灵感。</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h3 class="text-lg font-orbitron text-white mb-2">教育背景</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center">
+                                        <i class="fa fa-graduation-cap text-neon-blue mr-2"></i>
+                                        <span>地球联邦大学 - 人工智能伦理博士</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fa fa-graduation-cap text-neon-blue mr-2"></i>
+                                        <span>月面学院 - 量子计算硕士</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fa fa-graduation-cap text-neon-blue mr-2"></i>
+                                        <span>火星大学 - 文学创作学士</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-lg font-orbitron text-white mb-2">代表作品</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center">
+                                        <i class="fa fa-book text-neon-blue mr-2"></i>
+                                        <span>《红色沙漠中的蓝调》(2045)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fa fa-book text-neon-blue mr-2"></i>
+                                        <span>《仿生人梦见电子沙粒吗？》(2048)</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fa fa-book text-neon-blue mr-2"></i>
+                                        <span>《量子灵魂》(2051，创作中)</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="#" class="px-4 py-2 bg-dark-elevated hover:bg-neon-blue/10 text-neon-blue border border-neon-blue rounded-lg transition-all duration-300">
+                            <i class="fa fa-globe mr-2"></i> 个人网站
+                        </a>
+                        <a href="#" class="px-4 py-2 bg-dark-elevated hover:bg-neon-purple/10 text-neon-purple border border-neon-purple rounded-lg transition-all duration-300">
+                            <i class="fa fa-twitter mr-2"></i> @DaxonRei
+                        </a>
+                        <a href="#" class="px-4 py-2 bg-dark-elevated hover:bg-neon-pink/10 text-neon-pink border border-neon-pink rounded-lg transition-all duration-300">
+                            <i class="fa fa-instagram mr-2"></i> @daxon_rei
+                        </a>
+                        <a href="#" class="px-4 py-2 bg-dark-elevated hover:bg-white/10 text-white border border-white rounded-lg transition-all duration-300">
+                            <i class="fa fa-envelope mr-2"></i> 联系我
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 订阅更新 -->
+        <section id="subscribe" class="py-12 md:py-20 bg-dark-elevated/80">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-[clamp(1.5rem,3vw,2rem)] font-orbitron font-bold mb-4 text-white">
+                    订阅 <span class="text-neon-blue animate-glow">未来更新</span>
+                </h2>
+                <p class="text-gray-300 mb-8 max-w-2xl mx-auto">获取最新的写作进展、世界观设定和独家内容，直接发送到你的神经接口或邮箱。</p>
+                
+                <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <input type="email" placeholder="你的神经ID或电子邮箱" class="flex-grow px-4 py-3 bg-dark-base border border-neon-blue/50 rounded-lg focus:outline-none focus:border-neon-blue text-white">
+                    <button type="submit" class="px-6 py-3 bg-neon-blue hover:bg-neon-blue/80 text-dark-base font-medium rounded-lg transition-all duration-300 whitespace-nowrap">
+                        加入观察名单 <i class="fa fa-rocket ml-2"></i>
+                    </button>
+                </form>
+                
+                <p class="text-xs text-gray-400 mt-4">我们尊重你的隐私，绝不会分享你的信息。你可以随时取消订阅。</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 bg-dark-base border-t border-neon-blue/20 relative z-10">
+        <div class="container mx-auto px-4 sm:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <h3 class="text-xl font-orbitron font-bold mb-4 text-white">
+                        <span class="text-neon-blue">DAXON</span> 
+                        <span class="text-neon-purple">REI</span>
+                    </h3>
+                    <p class="text-gray-400 mb-6 max-w-md">探索未来社会的虚构观察者，定居火星的科幻小说家。</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-neon-purple transition-colors duration-300">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-neon-pink transition-colors duration-300">
+                            <i class="fa fa-youtube-play"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-neon-green transition-colors duration-300">
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-medium mb-4">导航</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">首页</a></li>
+                        <li><a href="#journal" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">创作日记</a></li>
+                        <li><a href="#concepts" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">脑洞设定</a></li>
+                        <li><a href="#ai-collab" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">AI共创</a></li>
+                        <li><a href="#messages" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">读者留言</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">关于作者</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-medium mb-4">资源</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">全部作品</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">世界观设定集</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">创作工具</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">公开演讲</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300">媒体采访</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">© 2025 Daxon Rei. 保留所有权利。</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">隐私政策</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">使用条款</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-300 text-sm">Cookie政策</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Chart.js for writing statistics
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('writingChart').getContext('2d');
+            const writingChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+                    datasets: [{
+                        label: '人类创作字数',
+                        data: [3200, 4500, 3800, 5200, 4900, 6100],
+                        borderColor: '#00f0ff',
+                        backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }, {
+                        label: 'AI辅助字数',
+                        data: [1200, 1800, 1500, 2300, 2100, 2700],
+                        borderColor: '#bf00ff',
+                        backgroundColor: 'rgba(191, 0, 255, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#f0f0f0'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#f0f0f0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#f0f0f0'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
 
 
-     <!-- 内容区1 -->
-     <h2>孵化账号展示</h2>
-       <head>
-         <style>
-           /* 隐藏所有图片，除了第一张 */
-           .slider img {
-             display: none;
-             border: 2px solid #9900ff; /* 添加图片边框 */
-           }
-           .slider img:first-child {
-             display: block;
-           }
-           /* 添加按钮样式 */
-           .slider button {
-             background: #fff;
-             border: 2px solid #ccc;
-             color: #333;
-             font-size: 16px;
-             padding: 10px;
-             margin: 10px;
-             cursor: pointer;
-             border-radius: 50%; /* 将按钮样式改为圆形 */
-           }
-           /* 添加选中按钮样式 */
-           .slider button.active {
-             background: #333;
-             color: #fff;
-           }
-         </style>
-         <script>
-           // 等待页面加载完成后执行
-           window.onload = function() {
-             // 获取所有图片和按钮
-             var slides = document.querySelectorAll('.slider img');
-             var buttons = document.querySelectorAll('.slider button');
-             // 设置初始索引为 0
-             var currentSlide = 0;
-             // 自动播放间隔（单位为毫秒）
-             var slideInterval = 2000;
-             // 自动播放定时器
-             var autoPlay;
-     
-             // 显示指定索引的图片和按钮
-             function showSlide(index) {
-               // 隐藏所有图片和按钮
-               for (var i = 0; i < slides.length; i++) {
-                 slides[i].style.display = 'none';
-                 buttons[i].classList.remove('active');
-               }
-               // 显示指定索引的图片和按钮
-               slides[index].style.display = 'block';
-               buttons[index].classList.add('active');
-             }
-     
-             // 自动播放函数
-             function nextSlide() {
-               // 显示下一张图片
-               currentSlide = (currentSlide + 1) % slides.length;
-               showSlide(currentSlide);
-             }
-     
-             // 设置自动播放定时器
-             autoPlay = setInterval(nextSlide, slideInterval);
-     
-             // 添加按钮点击事件
-             for (var i = 0; i < buttons.length; i++) {
-               // 为每个按钮添加一个自定义属性，保存它的索引
-               buttons[i].setAttribute('data-index', i);
-               buttons[i].addEventListener('click', function() {
-                 // 获取按钮的索引
-                 var index = parseInt(this.getAttribute('data-index'));
-                 // 显示指定索引的图片和按钮
-                 showSlide(index);
-                 // 取消自动播放定时器
-                 clearInterval
-             (autoPlay);
-             // 更新当前索引
-             currentSlide = index;
-           });
-         }
-         // 添加左右箭头点击事件
-         document.getElementById('prev').addEventListener('click', function() {
-           // 显示上一张图片
-           currentSlide = (currentSlide + slides.length - 1) % slides.length;
-           showSlide(currentSlide);
-           // 取消自动播放定时器
-           clearInterval(autoPlay);
-         });
-         document.getElementById('next').addEventListener('click', function() {
-           // 显示下一张图片
-           currentSlide = (currentSlide + 1) % slides.length;
-           showSlide(currentSlide);
-           // 取消自动播放定时器
-           clearInterval(autoPlay);
-         });
-       };
-     </script>
-      </head>
-       <body>
-         <div class="slider">
-           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示001.png" alt="Image 1">
-           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示002.png" alt="Image 2">
-           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示001.png" alt="Image 3">
-           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示002.png" alt="Image 4">
-           <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\展示001.png" alt="Image 5">
-           <div>
-             <!-- 添加手动选择的按钮 -->
-             <button></button>
-             <button></button>
-             <button></button>
-             <button></button>
-             <button></button>
-           </div>
-         </div>
-       </body>
-     </html>
-     
-
-
-
-      <!-- 内容区 -->
-      <div class="content">
-        <h2>关于我们</h2>
-       
-         
-        <p>纯初文化是网易游戏全资子公司，成立于2018年9月。是一
-            家专注于抖音快手短视频和直播内容领域的MCN机构。以网易
-            系内容为主，泛生活娱乐向内容为辅，营业范围包括电子竞技
-            行业（电子竞技俱乐部）和娱乐营销行业（艺人、明星代言、
-            广告及移动互联网营销等）。
-            旗下涵盖Cosplay、动漫、游戏、颜值、搞笑、剧情等多领
-            域达人，精准触达95后、00后年轻群体。总粉丝量已达1亿+，
-            播放量超240亿。
-            同时作为网易游戏旗下全资子公司，纯初现服务于多款网易
-            游戏旗下核心产品。</p >
-       
-        <p>纯初立志于成为抖音快手短视频和直播内容领域TOP前三的MCN 
-            机构，持续优化对KOL、电竞战队的运营与管理，探索并挖掘行业内商
-            业价值，实现多渠道变现。
-            纯初将立足于95、00后年轻受众群体，进一步推动短视频/电竞/ 
-            直播等新兴行业健康稳定发展，成为上海MCN业内机构模范标杆。</p >
-        <img src="C:\Users\wf.fengbo\Desktop\作业\A\sucai\21.png" alt="Image 2" width="400" height="400" style="margin-top:5px;">
-      </div>
-      <!-- 脚注 -->
-      <div class="footer">
-        <p>&copy; 合作请联系微信：fengbo89.</p >
-      </div>
-    </body>
-  </html>
+    </body></html>
