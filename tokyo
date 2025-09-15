@@ -1,1 +1,787 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>东京旅行指南 - 日本旅行指南</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind配置 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#BC002D', // 日本国旗红色作为主色调
+            secondary: '#0066B2', // 辅助色：蓝色
+            neutral: {
+              100: '#F5F7FA',
+              200: '#E4E7ED',
+              300: '#C0C4CC',
+              400: '#909399',
+              500: '#606266',
+              600: '#303133',
+            }
+          },
+          fontFamily: {
+            sans: ['Noto Sans SC', 'system-ui', 'sans-serif'],
+            display: ['Noto Serif SC', 'serif']
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .card-shadow {
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      }
+      .nav-shadow {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+      .text-balance {
+        text-wrap: balance;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+      .hover-scale {
+        transition: transform 0.3s ease;
+      }
+      .hover-scale:hover {
+        transform: scale(1.03);
+      }
+    }
+  </style>
+  
+  <!-- 引入中文字体 -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet">
+</head>
 
+<body class="bg-neutral-100 font-sans text-neutral-600">
+  <!-- 导航栏 -->
+  <header id="navbar" class="fixed w-full bg-white nav-shadow z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <i class="fa fa-map-marker text-primary text-2xl"></i>
+        <h1 class="text-xl md:text-2xl font-bold font-display text-neutral-600">日本旅行指南</h1>
+      </div>
+      
+      <!-- 桌面导航 -->
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="index.html#city-guide" class="text-neutral-600 hover:text-primary transition-colors font-medium">城市景点</a>
+        <a href="index.html#survival-guide" class="text-neutral-600 hover:text-primary transition-colors font-medium">实用指南</a>
+        <a href="index.html#emergency" class="text-neutral-600 hover:text-primary transition-colors font-medium">紧急联络</a>
+        <a href="index.html#phrasebook" class="text-neutral-600 hover:text-primary transition-colors font-medium">常用短语</a>
+      </nav>
+      
+      <!-- 移动端菜单按钮 -->
+      <button id="menu-toggle" class="md:hidden text-neutral-600 hover:text-primary">
+        <i class="fa fa-bars text-xl"></i>
+      </button>
+    </div>
+    
+    <!-- 移动端导航菜单 -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-neutral-200">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
+        <a href="index.html#city-guide" class="text-neutral-600 hover:text-primary transition-colors py-2 font-medium">城市景点</a>
+        <a href="index.html#survival-guide" class="text-neutral-600 hover:text-primary transition-colors py-2 font-medium">实用指南</a>
+        <a href="index.html#emergency" class="text-neutral-600 hover:text-primary transition-colors py-2 font-medium">紧急联络</a>
+        <a href="index.html#phrasebook" class="text-neutral-600 hover:text-primary transition-colors py-2 font-medium">常用短语</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 城市头部横幅 -->
+  <section class="pt-20">
+    <div class="relative h-[50vh] min-h-[400px]">
+      <img src="https://picsum.photos/id/1031/1600/800" alt="东京全景" class="absolute inset-0 w-full h-full object-cover">
+      <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-center text-white px-4">
+          <h1 class="text-[clamp(2.5rem,6vw,4.5rem)] font-bold font-display mb-4 text-shadow">东京</h1>
+          <p class="text-[clamp(1.1rem,2vw,1.5rem)] max-w-2xl mx-auto text-shadow">传统与现代交织的国际大都市</p>
+        </div>
+      </div>
+      
+      <!-- 城市导航 -->
+      <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 shadow-md">
+        <div class="container mx-auto px-4">
+          <div class="flex overflow-x-auto py-3 hide-scrollbar">
+            <a href="#overview" class="px-4 py-2 text-primary border-b-2 border-primary font-medium whitespace-nowrap">城市概况</a>
+            <a href="#attractions" class="px-4 py-2 text-neutral-500 hover:text-primary whitespace-nowrap">热门景点</a>
+            <a href="#food" class="px-4 py-2 text-neutral-500 hover:text-primary whitespace-nowrap">特色美食</a>
+            <a href="#transportation" class="px-4 py-2 text-neutral-500 hover:text-primary whitespace-nowrap">交通指南</a>
+            <a href="#shopping" class="px-4 py-2 text-neutral-500 hover:text-primary whitespace-nowrap">购物推荐</a>
+            <a href="#tips" class="px-4 py-2 text-neutral-500 hover:text-primary whitespace-nowrap">旅行贴士</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 城市内容 -->
+  <section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <!-- 城市概况 -->
+      <div id="overview" class="mb-16">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold font-display text-neutral-600 mb-6">城市概况</h2>
+          <div class="flex flex-col md:flex-row gap-8">
+            <div class="md:w-1/2">
+              <p class="text-neutral-600 mb-4 leading-relaxed">
+                东京是日本的首都和最大城市，位于本州岛东部。作为全球最重要的经济、文化和金融中心之一，东京融合了传统日本文化与尖端现代科技，形成了独特的城市魅力。
+              </p>
+              <p class="text-neutral-600 mb-4 leading-relaxed">
+                这座城市拥有超过1300万人口，是世界上人口最密集的大都市之一。东京由23个特别区、26个市、5个町和8个村组成，总面积约2,194平方公里。
+              </p>
+              <p class="text-neutral-600 leading-relaxed">
+                东京曾举办1964年夏季奥运会，并再次成为2020年夏季奥运会的主办城市，展示了其作为国际大都市的实力和魅力。
+              </p>
+            </div>
+            <div class="md:w-1/2">
+              <div class="bg-neutral-50 p-6 rounded-xl">
+                <h3 class="font-bold text-lg mb-4 text-neutral-600">基本信息</h3>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">最佳旅游季节</span>
+                    <span class="font-medium">春季(3-5月)、秋季(9-11月)</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">建议游玩天数</span>
+                    <span class="font-medium">5-7天</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">官方语言</span>
+                    <span class="font-medium">日语</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">货币单位</span>
+                    <span class="font-medium">日元(JPY)</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">电压</span>
+                    <span class="font-medium">100V，50/60Hz</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-neutral-500">时区</span>
+                    <span class="font-medium">UTC+9(比北京时间快1小时)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 热门景点 -->
+      <div id="attractions" class="mb-16">
+        <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold font-display text-neutral-600 mb-8 text-center">热门景点</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 东京塔 -->
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/1033/600/400" alt="东京塔" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">东京塔</h3>
+              <div class="flex items-center mb-3 text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>港区芝公园4-2-8</span>
+              </div>
+              <p class="text-neutral-600 mb-4">
+                东京的标志性建筑，建于1958年，高333米。模仿巴黎埃菲尔铁塔设计，是东京天际线的重要组成部分。
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                  <i class="fa fa-clock-o text-neutral-500 mr-1"></i>
+                  <span class="text-sm text-neutral-500">9:00-23:00</span>
+                </div>
+                <span class="text-sm font-medium text-primary">门票: 约1,200日元</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 浅草寺 -->
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/1034/600/400" alt="浅草寺" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">浅草寺</h3>
+              <div class="flex items-center mb-3 text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>台东区浅草2-3-1</span>
+              </div>
+              <p class="text-neutral-600 mb-4">
+                东京最古老的寺庙，建于628年。雷门是其标志性入口，内部有许多传统商店和小吃摊。
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                  <i class="fa fa-clock-o text-neutral-500 mr-1"></i>
+                  <span class="text-sm text-neutral-500">6:00-17:00(主殿)</span>
+                </div>
+                <span class="text-sm font-medium text-primary">免费入场</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 涩谷十字路口 -->
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/1035/600/400" alt="涩谷十字路口" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">涩谷十字路口</h3>
+              <div class="flex items-center mb-3 text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>涩谷区宇田川町</span>
+              </div>
+              <p class="text-neutral-600 mb-4">
+                被称为"世界上最繁忙的人行横道"，每次绿灯时有数千人同时过马路，是东京现代生活的象征。
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                  <i class="fa fa-camera text-neutral-500 mr-1"></i>
+                  <span class="text-sm text-neutral-500">推荐: 星巴克观景台</span>
+                </div>
+                <span class="text-sm font-medium text-primary">免费参观</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 上野公园 -->
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/1036/600/400" alt="上野公园" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">上野公园</h3>
+              <div class="flex items-center mb-3 text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>台东区上野公园</span>
+              </div>
+              <p class="text-neutral-600 mb-4">
+                东京最著名的公园之一，春季樱花季尤其美丽。园内有多个博物馆、动物园和上野动物园。
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                  <i class="fa fa-clock-o text-neutral-500 mr-1"></i>
+                  <span class="text-sm text-neutral-500">全天开放</span>
+                </div>
+                <span class="text-sm font-medium text-primary">公园免费</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 皇居外苑 -->
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/1037/600/400" alt="皇居外苑" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">皇居外苑</h3>
+              <div class="flex items-center mb-3 text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>千代田区千代田</span>
+              </div>
+              <p class="text-neutral-600 mb-4">
+                日本天皇的住所，位于东京市中心。外苑向公众开放，以美丽的日本庭园和标志性的二重桥闻名。
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                  <i class="fa fa-clock-o text-neutral-500 mr-1"></i>
+                  <span class="text-sm text-neutral-500">9:00-17:00</span>
+                </div>
+                <span class="text-sm font-medium text-primary">免费参观</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 秋叶原 -->
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-56 overflow-hidden">
+              <img src="https://picsum.photos/id/1038/600/400" alt="秋叶原" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">秋叶原</h3>
+              <div class="flex items-center mb-3 text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>千代田区外神田</span>
+              </div>
+              <p class="text-neutral-600 mb-4">
+                世界著名的电子产品和动漫文化中心，有许多电器商店、动漫店和游戏中心。
+              </p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                  <i class="fa fa-clock-o text-neutral-500 mr-1"></i>
+                  <span class="text-sm text-neutral-500">多数商店10:00-20:00</span>
+                </div>
+                <span class="text-sm font-medium text-primary">自由参观</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 特色美食 -->
+      <div id="food" class="mb-16">
+        <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold font-display text-neutral-600 mb-8 text-center">特色美食</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="flex bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="w-1/3">
+              <img src="https://picsum.photos/id/1080/300/400" alt="寿司" class="w-full h-full object-cover">
+            </div>
+            <div class="w-2/3 p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">寿司</h3>
+              <p class="text-neutral-600 mb-3">
+                东京是品尝正宗寿司的最佳地点之一，尤其是江户前寿司。推荐去银座或筑地市场附近的知名寿司店。
+              </p>
+              <div class="flex items-center text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>推荐区域: 筑地、银座、新宿</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="w-1/3">
+              <img src="https://picsum.photos/id/1081/300/400" alt="拉面" class="w-full h-full object-cover">
+            </div>
+            <div class="w-2/3 p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">拉面</h3>
+              <p class="text-neutral-600 mb-3">
+                东京拉面以酱油味汤底为主，劲道的面条搭配叉烧、溏心蛋等配料。新宿、池袋有许多知名拉面店。
+              </p>
+              <div class="flex items-center text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>推荐区域: 新宿、池袋、六本木</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="w-1/3">
+              <img src="https://picsum.photos/id/1082/300/400" alt="天妇罗" class="w-full h-full object-cover">
+            </div>
+            <div class="w-2/3 p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">天妇罗</h3>
+              <p class="text-neutral-600 mb-3">
+                东京的天妇罗以轻薄酥脆的面衣和新鲜食材著称，通常蘸着特制酱汁食用，是不容错过的美食。
+              </p>
+              <div class="flex items-center text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>推荐区域: 银座、浅草、东京站</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="w-1/3">
+              <img src="https://picsum.photos/id/1083/300/400" alt="居酒屋小吃" class="w-full h-full object-cover">
+            </div>
+            <div class="w-2/3 p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">居酒屋小吃</h3>
+              <p class="text-neutral-600 mb-3">
+                体验东京夜生活的最佳方式是去居酒屋，品尝烤鸡肉串、章鱼小丸子、煎饺等传统日式下酒菜。
+              </p>
+              <div class="flex items-center text-sm text-neutral-500">
+                <i class="fa fa-map-marker mr-1"></i>
+                <span>推荐区域: 新宿黄金街、涩谷、上野</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 交通指南 -->
+      <div id="transportation" class="mb-16">
+        <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold font-display text-neutral-600 mb-8 text-center">交通指南</h2>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white rounded-xl p-6 card-shadow mb-8">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-4 flex items-center">
+              <i class="fa fa-subway text-primary mr-2"></i>
+              地铁与电车
+            </h3>
+            <p class="text-neutral-600 mb-4">
+              东京的地铁和电车系统非常发达，是游览东京最便捷的方式。主要运营商包括东京地铁、都营地铁和JR东日本。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div class="bg-neutral-50 p-4 rounded-lg">
+                <h4 class="font-medium text-neutral-600 mb-2">推荐交通卡</h4>
+                <ul class="list-disc pl-5 text-neutral-600 space-y-1">
+                  <li>Suica/Pasmo卡：可用于所有地铁、巴士和部分商店</li>
+                  <li>东京地铁通票：24/48/72小时无限乘坐地铁</li>
+                  <li>JR Pass：适合同时游览其他城市的游客</li>
+                </ul>
+              </div>
+              <div class="bg-neutral-50 p-4 rounded-lg">
+                <h4 class="font-medium text-neutral-600 mb-2">实用App</h4>
+                <ul class="list-disc pl-5 text-neutral-600 space-y-1">
+                  <li>Google地图：导航首选</li>
+                  <li>Japan Travel by NAVITIME</li>
+                  <li>东京地铁官方App</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 card-shadow mb-8">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-4 flex items-center">
+              <i class="fa fa-bus text-primary mr-2"></i>
+              巴士
+            </h3>
+            <p class="text-neutral-600 mb-4">
+              巴士覆盖了地铁难以到达的区域，票价与地铁相近。都营巴士是主要运营商，线路遍布东京23区。
+            </p>
+            <p class="text-neutral-600">
+              夜间巴士是深夜出行的重要选择，部分线路24小时运营，方便夜间活动后返回住宿。
+            </p>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 card-shadow">
+            <h3 class="text-xl font-bold font-display text-neutral-600 mb-4 flex items-center">
+              <i class="fa fa-taxi text-primary mr-2"></i>
+              出租车与网约车
+            </h3>
+            <p class="text-neutral-600 mb-4">
+              东京出租车费用较高，但非常方便。车门通常自动开关，无需手动操作。出租车分为普通、中型和大型，价格不同。
+            </p>
+            <p class="text-neutral-600">
+              网约车服务如Uber在东京也有运营，但普及率不如传统出租车。使用时需注意，部分司机可能不会说英语。
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 购物推荐 -->
+      <div id="shopping" class="mb-16">
+        <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold font-display text-neutral-600 mb-8 text-center">购物推荐</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-40 overflow-hidden">
+              <img src="https://picsum.photos/id/1060/600/400" alt="银座" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">银座</h3>
+              <p class="text-neutral-600 mb-3">
+                东京最奢华的购物区，汇集了世界各地的高端品牌和百货公司，如三越百货、和光百货等。
+              </p>
+              <div class="flex items-center text-sm text-neutral-500">
+                <i class="fa fa-subway mr-1"></i>
+                <span>地铁银座线、丸之内线银座站</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-40 overflow-hidden">
+              <img src="https://picsum.photos/id/1061/600/400" alt="新宿" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">新宿</h3>
+              <p class="text-neutral-600 mb-3">
+                适合各种预算的购物区，有伊势丹、小田急百货等大型商场，也有平价商店和药妆店。
+              </p>
+              <div class="flex items-center text-sm text-neutral-500">
+                <i class="fa fa-subway mr-1"></i>
+                <span>JR线、地铁新宿站</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white rounded-xl overflow-hidden card-shadow hover-scale">
+            <div class="h-40 overflow-hidden">
+              <img src="https://picsum.photos/id/1062/600/400" alt="原宿" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold font-display text-neutral-600 mb-2">原宿</h3>
+              <p class="text-neutral-600 mb-3">
+                年轻人的时尚天堂，竹下通有许多潮流商店和特色小店，适合购买独特的日本潮牌。
+              </p>
+              <div class="flex items-center text-sm text-neutral-500">
+                <i class="fa fa-subway mr-1"></i>
+                <span>JR山手线原宿站</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 bg-neutral-50 p-6 rounded-xl max-w-4xl mx-auto">
+          <h3 class="text-lg font-bold font-display text-neutral-600 mb-4">购物小贴士</h3>
+          <ul class="list-disc pl-5 text-neutral-600 space-y-2">
+            <li>标有"免税"（Tax Free）的商店，外国游客可享受免税优惠，需出示护照</li>
+            <li>大型百货公司通常可以直接退税，小型商店可能需要在机场办理</li>
+            <li>药妆店（如松本清、大国药妆）是购买化妆品、保健品的好去处，常有折扣</li>
+            <li>电器商店（如Yodobashi Camera、Bic Camera）可购买电子产品，价格实惠且支持免税</li>
+            <li>日本的商场和商店通常在10:00-20:00营业，部分商店周日休息</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- 旅行贴士 -->
+      <div id="tips">
+        <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold font-display text-neutral-600 mb-8 text-center">旅行贴士</h2>
+        
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white rounded-xl p-6 card-shadow">
+            <h3 class="text-lg font-bold font-display text-neutral-600 mb-4 flex items-center">
+              <i class="fa fa-info-circle text-primary mr-2"></i>
+              实用信息
+            </h3>
+            <ul class="list-disc pl-5 text-neutral-600 space-y-2">
+              <li>东京的电压为100V，插头为两脚扁型，国内两孔插头可直接使用，三孔需转换器</li>
+              <li>自来水可以直接饮用，但多数日本人仍饮用瓶装水</li>
+              <li>公共场所的垃圾桶较少，建议随身携带垃圾袋</li>
+              <li>大多数公共场所禁止吸烟，设有专门的吸烟区</li>
+              <li>东京的消费税为10%，部分商店对外国游客免税</li>
+            </ul>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 card-shadow">
+            <h3 class="text-lg font-bold font-display text-neutral-600 mb-4 flex items-center">
+              <i class="fa fa-calendar text-primary mr-2"></i>
+              最佳游览时间
+            </h3>
+            <ul class="list-disc pl-5 text-neutral-600 space-y-2">
+              <li><span class="font-medium">春季(3-5月)</span>：樱花季，天气宜人，是游览东京的最佳时节</li>
+              <li><span class="font-medium">秋季(9-11月)</span>：秋高气爽，枫叶美丽，游客相对较少</li>
+              <li><span class="font-medium">夏季(6-8月)</span>：炎热潮湿，但有许多夏日祭活动</li>
+              <li><span class="font-medium">冬季(12-2月)</span>：寒冷干燥，圣诞节和新年期间装饰华丽</li>
+            </ul>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 card-shadow">
+            <h3 class="text-lg font-bold font-display text-neutral-600 mb-4 flex items-center">
+              <i class="fa fa-hotel text-primary mr-2"></i>
+              住宿建议
+            </h3>
+            <ul class="list-disc pl-5 text-neutral-600 space-y-2">
+              <li><span class="font-medium">新宿</span>：交通便利，购物餐饮丰富，适合首次到访的游客</li>
+              <li><span class="font-medium">银座</span>：高端酒店集中，环境优雅，适合预算充足的游客</li>
+              <li><span class="font-medium">上野</span>：性价比高，靠近多个景点，适合家庭游客</li>
+              <li><span class="font-medium">涩谷</span>：年轻人聚集地，夜生活丰富，适合年轻游客</li>
+            </ul>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 card-shadow">
+            <h3 class="text-lg font-bold font-display text-neutral-600 mb-4 flex items-center">
+              <i class="fa fa-exclamation-triangle text-primary mr-2"></i>
+              注意事项
+            </h3>
+            <ul class="list-disc pl-5 text-neutral-600 space-y-2">
+              <li>东京地铁在高峰时段（7:30-9:00，17:30-19:00）非常拥挤，尽量避开</li>
+              <li>在公共场所保持安静，尤其是在交通工具上</li>
+              <li>排队是日本的文化，购物、乘车时请自觉排队</li>
+              <li>给小费不是日本的习惯，服务人员可能会拒绝接受</li>
+              <li>紧急情况下可拨打110（警察）或119（救护、消防）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 其他城市推荐 -->
+  <section class="py-12 bg-neutral-50">
+    <div class="container mx-auto px-4">
+      <h2 class="text-[clamp(1.8rem,3vw,2.5rem)] font-bold font-display text-neutral-600 mb-8 text-center">探索更多日本城市</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="osaka.html" class="block group">
+          <div class="bg-white rounded-xl overflow-hidden card-shadow h-full hover-scale">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1036/600/400" alt="大阪" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="font-bold font-display text-neutral-600">大阪</h3>
+              <p class="text-sm text-neutral-500">美食之都与关西门户</p>
+            </div>
+          </div>
+        </a>
+        
+        <a href="kyoto.html" class="block group">
+          <div class="bg-white rounded-xl overflow-hidden card-shadow h-full hover-scale">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1037/600/400" alt="京都" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="font-bold font-display text-neutral-600">京都</h3>
+              <p class="text-sm text-neutral-500">千年古都与传统文化</p>
+            </div>
+          </div>
+        </a>
+        
+        <a href="nagoya.html" class="block group">
+          <div class="bg-white rounded-xl overflow-hidden card-shadow h-full hover-scale">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1038/600/400" alt="名古屋" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="font-bold font-display text-neutral-600">名古屋</h3>
+              <p class="text-sm text-neutral-500">中部枢纽与历史名城</p>
+            </div>
+          </div>
+        </a>
+        
+        <a href="sapporo.html" class="block group">
+          <div class="bg-white rounded-xl overflow-hidden card-shadow h-full hover-scale">
+            <div class="h-48 overflow-hidden">
+              <img src="https://picsum.photos/id/1039/600/400" alt="札幌" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+            <div class="p-4 text-center">
+              <h3 class="font-bold font-display text-neutral-600">札幌</h3>
+              <p class="text-sm text-neutral-500">北海道的冰雪王国</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-neutral-600 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fa fa-map-marker text-white text-2xl"></i>
+            <h3 class="text-xl font-bold font-display">日本旅行指南</h3>
+          </div>
+          <p class="text-neutral-300 mb-4">为中国游客提供全面的日本旅行信息，助您轻松畅游日本</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-neutral-300 hover:text-white transition-colors">
+              <i class="fa fa-weixin"></i>
+            </a>
+            <a href="#" class="text-neutral-300 hover:text-white transition-colors">
+              <i class="fa fa-weibo"></i>
+            </a>
+            <a href="#" class="text-neutral-300 hover:text-white transition-colors">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a href="#" class="text-neutral-300 hover:text-white transition-colors">
+              <i class="fa fa-youtube-play"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold font-display mb-4">快速链接</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#city-guide" class="text-neutral-300 hover:text-white transition-colors">城市景点</a></li>
+            <li><a href="index.html#survival-guide" class="text-neutral-300 hover:text-white transition-colors">实用指南</a></li>
+            <li><a href="index.html#emergency" class="text-neutral-300 hover:text-white transition-colors">紧急联络</a></li>
+            <li><a href="index.html#phrasebook" class="text-neutral-300 hover:text-white transition-colors">常用短语</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold font-display mb-4">热门城市</h4>
+          <ul class="space-y-2">
+            <li><a href="tokyo.html" class="text-neutral-300 hover:text-white transition-colors">东京</a></li>
+            <li><a href="osaka.html" class="text-neutral-300 hover:text-white transition-colors">大阪</a></li>
+            <li><a href="kyoto.html" class="text-neutral-300 hover:text-white transition-colors">京都</a></li>
+            <li><a href="nagoya.html" class="text-neutral-300 hover:text-white transition-colors">名古屋</a></li>
+            <li><a href="sapporo.html" class="text-neutral-300 hover:text-white transition-colors">札幌</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold font-display mb-4">订阅更新</h4>
+          <p class="text-neutral-300 mb-4">订阅我们的 newsletter，获取最新日本旅行资讯</p>
+          <form class="flex">
+            <input type="email" placeholder="您的邮箱地址" class="px-4 py-2 rounded-l-lg w-full focus:outline-none text-neutral-600">
+            <button type="submit" class="bg-primary hover:bg-primary/90 px-4 py-2 rounded-r-lg transition-colors">
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-neutral-500 mt-12 pt-8 text-center text-neutral-400">
+        <p>© 2025 日本旅行指南 版权所有</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-2');
+        navbar.classList.remove('py-3');
+      } else {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-2');
+      }
+    });
+    
+    // 移动端菜单切换
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 160,
+            behavior: 'smooth'
+          });
+          
+          // 关闭移动菜单
+          if (!mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.add('hidden');
+          }
+        }
+      });
+    });
+    
+    // 滚动时高亮当前导航项
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section[id]');
+      let scrollPosition = window.scrollY + 200;
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+        
+        const navLink = document.querySelector(`a[href="#${sectionId}"]`);
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+          document.querySelectorAll('.flex.overflow-x-auto a').forEach(link => {
+            link.classList.remove('text-primary', 'border-b-2', 'border-primary', 'font-medium');
+            link.classList.add('text-neutral-500');
+          });
+          
+          if (navLink) {
+            navLink.classList.remove('text-neutral-500');
+            navLink.classList.add('text-primary', 'border-b-2', 'border-primary', 'font-medium');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+    
